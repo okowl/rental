@@ -1,4 +1,6 @@
 package models.content;
 
-public class Content {
+public abstract class Content {
+
+
 }
