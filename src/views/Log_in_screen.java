@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 
 public class Log_in_screen extends Main_frame{
 
-    //TO DO
     /**
+     * TO DO:
     * Check how automativally change all font in Jframe
     * And set default font color to white
      * Probably will be @override
@@ -46,7 +46,6 @@ public class Log_in_screen extends Main_frame{
         details.setForeground(Color.WHITE);
         pass.setForeground(Color.WHITE);
         u_mail.setForeground(Color.WHITE);
-
 
         this.add(details, "wrap");
 

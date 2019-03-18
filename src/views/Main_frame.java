@@ -5,6 +5,10 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Check if this possible to do generic or any other way
+ */
+
 public class Main_frame extends JFrame {
 
     public static JButton log_out;
