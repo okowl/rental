@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class new_customer extends Main_frame {
 
-
+    private JPasswordField passw, pass_2;
     private JTextField email, phone, first_name, last_name, salon_name;
     private JTextArea address;
     private JButton complete_reg, cancel;
@@ -23,13 +23,15 @@ public class new_customer extends Main_frame {
     JPanel user_form = new JPanel(new MigLayout());
 
     //all labels for each field
-
+    JLabel pass = new JLabel("Password:");
+    JLabel pass_c = new JLabel("Confirm password:");
     JLabel l_name = new JLabel("Last name:");
     JLabel f_name = new JLabel("First name:");
     JLabel u_mail = new JLabel("Email:");
     JLabel u_phone = new JLabel("Contact number:");
-    JLabel s_address = new JLabel("Address: ");
-
+    JLabel s_name = new JLabel("Salon name:");
+    JLabel s_address = new JLabel("Salon address: ");
+    JLabel choose = new JLabel("Choose your city:");
 
     //all fields
     email = new JTextField(50);
@@ -40,6 +42,9 @@ public class new_customer extends Main_frame {
 
     address = new JTextArea(4, 54);
 
+
+    passw = new JPasswordField(54);
+    pass_2 = new JPasswordField(54);
 
     //buttons
     complete_reg = new JButton("Complete");
@@ -61,7 +66,10 @@ public class new_customer extends Main_frame {
         user_form.add(phone, "span, wrap");
         user_form.add(u_mail);
         user_form.add(email, "span, wrap");
-
+        user_form.add(pass);
+        user_form.add(passw, "span, wrap");
+        user_form.add(pass_c);
+        user_form.add(pass_2, "span, wrap");
 
     }
 
