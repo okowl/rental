@@ -1,16 +1,18 @@
 package models.customers;
 
-import models.titles.Music;
+import models.titles.Audio;
 
-import java.util.List;
+public class MusicL extends Customer <Audio>{
 
-public class MusicL extends Customer <Music>{
+    //just two different constructors
 
-    public MusicL(Integer ID, String name, String address) {
-        super(ID, name, address);
+    //with all the parameters needed
+    public MusicL(Integer ID, String name, String address, Membership_card membership_card) {
+        super(ID, name, address, membership_card);
         customer_type = this.getClass().getSimpleName();
     }
 
+    //and for more flexibility - another one
     public MusicL(String name, String address) {
         super(name, address);
         customer_type = this.getClass().getSimpleName();

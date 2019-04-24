@@ -2,6 +2,9 @@ package models.titles;
 
 public class LiveConcert extends Audio {
 
+    /**
+     * Model for the Live Concert titles
+     */
 
     private String Event_name;
 
@@ -27,9 +30,9 @@ public class LiveConcert extends Audio {
     public String toString() {
         return "LiveConcert{" +
                 "Event_name='" + Event_name + '\'' +
-                ", ID=" + ID +
-                ", Title='" + Title + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
+                ", ID=" + ID +
+                ", Name='" + Name + '\'' +
                 '}';
     }
 }

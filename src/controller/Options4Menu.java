@@ -1,5 +1,8 @@
 package controller;
-
+/**
+ * interface that shows all the menu options for the stuff member
+ *
+ * */
 public interface Options4Menu {
 
     void serach4title();

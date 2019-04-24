@@ -2,8 +2,15 @@ package models;
 
 public abstract class Registry {
 
-    private Integer ID;
-    private String Name;
+    /***
+     * High level abstraction that will be really handy if
+     * I would use database, as on the high level I would use just a set range of ids for customers
+     * and just items like club cards in Tesco
+     */
+
+
+    protected Integer ID;
+    protected String Name;
 
     public Registry(Integer ID, String name) {
         this.ID = ID;

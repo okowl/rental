@@ -4,6 +4,10 @@ import models.Registry;
 
 public abstract class Titles extends Registry {
 
+    /**
+     * A high level abstraction for all titles
+     */
+
     public static Integer counter_id = 0;
     public String Year_Release;
 
@@ -37,6 +41,8 @@ public abstract class Titles extends Registry {
     public String toString() {
         return "Titles{" +
                 "Year_Release='" + Year_Release + '\'' +
+                ", ID=" + ID +
+                ", Name='" + Name + '\'' +
                 '}';
     }
 }

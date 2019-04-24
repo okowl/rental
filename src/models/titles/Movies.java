@@ -2,6 +2,10 @@ package models.titles;
 
 public class Movies extends Viseo {
 
+    /**
+     * Model for the Movies titles
+     */
+
     private String Rewards;
 
     public Movies(Integer ID, String title, String year_Release, String director, String genre, String rewards) {
@@ -26,9 +30,9 @@ public class Movies extends Viseo {
     public String toString() {
         return "Movies{" +
                 "Rewards='" + Rewards + '\'' +
-                ", ID=" + ID +
-                ", Title='" + Title + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
+                ", ID=" + ID +
+                ", Name='" + Name + '\'' +
                 '}';
     }
 }

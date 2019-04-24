@@ -4,6 +4,9 @@ public class BoxSet extends Viseo {
 
     private Integer num_seasons;
 
+    /**
+     * Model for TW-shows titles
+     */
 
     public BoxSet(Integer ID, String title, String year_Release, String director, String genre, Integer num_seasons) {
         super(ID, title, year_Release, director, genre);
@@ -27,9 +30,9 @@ public class BoxSet extends Viseo {
     public String toString() {
         return "BoxSet{" +
                 "num_seasons=" + num_seasons +
-                ", ID=" + ID +
-                ", Title='" + Title + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
+                ", ID=" + ID +
+                ", Name='" + Name + '\'' +
                 '}';
     }
 }

@@ -1,6 +1,9 @@
 package models.titles;
 
 public abstract class Audio extends Titles {
+    /**
+     * A high level abstraction for Music and Live concert class
+     */
 
     private String Band_name;
 
@@ -26,9 +29,9 @@ public abstract class Audio extends Titles {
     public String toString() {
         return "Audio{" +
                 "Band_name='" + Band_name + '\'' +
-                ", ID=" + ID +
-                ", Title='" + Title + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
+                ", ID=" + ID +
+                ", Name='" + Name + '\'' +
                 '}';
     }
 }

@@ -2,6 +2,10 @@ package models.titles;
 
 public abstract class Viseo extends Titles {
 
+    /**
+     * A high level abstraction for all the video content
+     */
+
 
     private String Director;
     private String Genre;
@@ -34,14 +38,15 @@ public abstract class Viseo extends Titles {
         Genre = genre;
     }
 
+
     @Override
     public String toString() {
         return "Viseo{" +
                 "Director='" + Director + '\'' +
                 ", Genre='" + Genre + '\'' +
-                ", ID=" + ID +
-                ", Title='" + Title + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
+                ", ID=" + ID +
+                ", Name='" + Name + '\'' +
                 '}';
     }
 }

@@ -12,18 +12,28 @@ public class Customer <T extends Titles> extends Registry {
     protected String customer_type;
     protected List <T> Rent_history;
     protected Membership_card membership_card;
-    public static Integer customers_counter = 0;
+    public static Integer customers_counter = 1;
 
 
 
-    public Customer(Integer ID, String name, String address) {
+    public Customer(Integer ID, String name, String address, Membership_card membership_card) {
         super(ID, name);
         this.address = address;
+        this.membership_card = membership_card;
+        customers_counter += 1;
     }
 
     public Customer(String name, String address) {
-        super(customers_counter+1, name);
+        super(customers_counter, name);
         this.address = address;
+        this.membership_card = initMembershipCard();
+        customers_counter += 1;
+    }
+
+
+    //TODO to implement new membershipCard Instantiation
+    private Membership_card initMembershipCard() {
+        return new Membership_card(CardType.CREDIT, 0);
     }
 
     public String getAddress() {
@@ -73,10 +83,17 @@ public class Customer <T extends Titles> extends Registry {
                 ", customer_type='" + customer_type + '\'' +
                 ", Rent_history=" + Rent_history +
                 ", membership_card=" + membership_card +
+                ", ID=" + ID +
+                ", Name='" + Name + '\'' +
                 '}';
     }
 
-    private class Membership_card{
+    /**
+     * There are no membership card without a member
+     * So here goes inner class that hold functionality for the membreship card
+     * */
+
+    public class Membership_card{
 
         CardType card;
         private Integer loyalty_pointd;
@@ -93,6 +110,8 @@ public class Customer <T extends Titles> extends Registry {
 
         }
 
+        //getters and setters
+
         public CardType getCard() {
             return card;
         }
@@ -101,13 +120,6 @@ public class Customer <T extends Titles> extends Registry {
             this.card = card;
         }
 
-        @Override
-        public String toString() {
-            return "Membership_card{" +
-                    "card=" + card +
-                    ", loyalty_pointd=" + loyalty_pointd +
-                    '}';
-        }
 
         public Integer getLoyalty_pointd() {
             return loyalty_pointd;
@@ -115,6 +127,14 @@ public class Customer <T extends Titles> extends Registry {
 
         public void setLoyalty_pointd(Integer loyalty_pointd) {
             this.loyalty_pointd = loyalty_pointd;
+        }
+
+        @Override
+        public String toString() {
+            return "Membership_card{" +
+                    "card=" + card +
+                    ", loyalty_pointd=" + loyalty_pointd +
+                    '}';
         }
     }
 
