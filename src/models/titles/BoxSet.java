@@ -1,16 +1,16 @@
 package models.titles;
 
-public class box_set extends visual{
+public class BoxSet extends Viseo {
 
     private Integer num_seasons;
 
 
-    public box_set(Integer ID, String title, String year_Release, String director, String genre, Integer num_seasons) {
+    public BoxSet(Integer ID, String title, String year_Release, String director, String genre, Integer num_seasons) {
         super(ID, title, year_Release, director, genre);
         this.num_seasons = num_seasons;
     }
 
-    public box_set(String title, String year_Release, String director, String genre, Integer num_seasons) {
+    public BoxSet(String title, String year_Release, String director, String genre, Integer num_seasons) {
         super(title, year_Release, director, genre);
         this.num_seasons = num_seasons;
     }
@@ -25,7 +25,7 @@ public class box_set extends visual{
 
     @Override
     public String toString() {
-        return "box_set{" +
+        return "BoxSet{" +
                 "num_seasons=" + num_seasons +
                 ", ID=" + ID +
                 ", Title='" + Title + '\'' +

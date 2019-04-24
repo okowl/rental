@@ -1,18 +1,18 @@
 package models.titles;
 
-public abstract class visual extends Titles {
+public abstract class Viseo extends Titles {
 
 
     private String Director;
     private String Genre;
 
-    public visual(Integer ID, String title, String year_Release, String director, String genre) {
+    public Viseo(Integer ID, String title, String year_Release, String director, String genre) {
         super(ID, title, year_Release);
         Director = director;
         Genre = genre;
     }
 
-    public visual(String title, String year_Release, String director, String genre) {
+    public Viseo(String title, String year_Release, String director, String genre) {
         super(title, year_Release);
         Director = director;
         Genre = genre;
@@ -36,7 +36,7 @@ public abstract class visual extends Titles {
 
     @Override
     public String toString() {
-        return "visual{" +
+        return "Viseo{" +
                 "Director='" + Director + '\'' +
                 ", Genre='" + Genre + '\'' +
                 ", ID=" + ID +

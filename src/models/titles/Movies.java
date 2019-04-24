@@ -1,15 +1,15 @@
 package models.titles;
 
-public class movies extends visual {
+public class Movies extends Viseo {
 
     private String Rewards;
 
-    public movies(Integer ID, String title, String year_Release, String director, String genre, String rewards) {
+    public Movies(Integer ID, String title, String year_Release, String director, String genre, String rewards) {
         super(ID, title, year_Release, director, genre);
         Rewards = rewards;
     }
 
-    public movies(String title, String year_Release, String director, String genre, String rewards) {
+    public Movies(String title, String year_Release, String director, String genre, String rewards) {
         super(title, year_Release, director, genre);
         Rewards = rewards;
     }
@@ -24,7 +24,7 @@ public class movies extends visual {
 
     @Override
     public String toString() {
-        return "movies{" +
+        return "Movies{" +
                 "Rewards='" + Rewards + '\'' +
                 ", ID=" + ID +
                 ", Title='" + Title + '\'' +

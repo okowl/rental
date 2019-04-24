@@ -1,15 +1,15 @@
 package models.titles;
 
-public class music extends audio {
+public class Music extends Audio {
 
     private String Genre;
 
-    public music(Integer ID, String title, String year_Release, String band_name, String genre) {
+    public Music(Integer ID, String title, String year_Release, String band_name, String genre) {
         super(ID, title, year_Release, band_name);
         Genre = genre;
     }
 
-    public music(String title, String year_Release, String band_name, String genre) {
+    public Music(String title, String year_Release, String band_name, String genre) {
         super(title, year_Release, band_name);
         Genre = genre;
     }
@@ -24,7 +24,7 @@ public class music extends audio {
 
     @Override
     public String toString() {
-        return "music{" +
+        return "Music{" +
                 "Genre='" + Genre + '\'' +
                 ", ID=" + ID +
                 ", Title='" + Title + '\'' +

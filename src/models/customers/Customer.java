@@ -1,4 +1,138 @@
 package models.customers;
 
-public class Customer {
+import models.titles.Titles;
+
+import java.util.List;
+
+public class Customer <T extends Titles> {
+
+    private Integer ID;
+    private String Name;
+    private String address;
+    private String customer_type;
+    private List <T> Rent_history;
+    private Membership_card membership_card;
+    private static Integer customers_counter = 0;
+
+    public Customer(Integer ID, String name, String address, String customer_type, List<T> rent_history) {
+        this.ID = ID;
+        Name = name;
+        this.address = address;
+        this.customer_type = customer_type;
+        Rent_history = rent_history;
+        //this.membership_card = membership_card;
+
+    }
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCustomer_type() {
+        return customer_type;
+    }
+
+    public void setCustomer_type(String customer_type) {
+        this.customer_type = customer_type;
+    }
+
+    public List<T> getRent_history() {
+        return Rent_history;
+    }
+
+    public void setRent_history(List<T> rent_history) {
+        Rent_history = rent_history;
+    }
+
+    public Membership_card getMembership_card() {
+        return membership_card;
+    }
+
+    public void setMembership_card(Membership_card membership_card) {
+        this.membership_card = membership_card;
+    }
+
+    public static Integer getCustomers_counter() {
+        return customers_counter;
+    }
+
+    public static void setCustomers_counter(Integer customers_counter) {
+        Customer.customers_counter = customers_counter;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "ID=" + ID +
+                ", Name='" + Name + '\'' +
+                ", address='" + address + '\'' +
+                ", customer_type='" + customer_type + '\'' +
+                ", Rent_history=" + Rent_history +
+                ", membership_card=" + membership_card +
+                '}';
+    }
+
+    private class Membership_card{
+
+        CardType card;
+        private Integer loyalty_pointd;
+
+        public Membership_card(CardType card, Integer loyalty_pointd) {
+            this.card = card;
+            this.loyalty_pointd = loyalty_pointd;
+        }
+
+        //initial loyalty points methods
+        public void add_10_points(){
+
+            loyalty_pointd+=10;
+
+        }
+
+        public CardType getCard() {
+            return card;
+        }
+
+        public void setCard(CardType card) {
+            this.card = card;
+        }
+
+        @Override
+        public String toString() {
+            return "Membership_card{" +
+                    "card=" + card +
+                    ", loyalty_pointd=" + loyalty_pointd +
+                    '}';
+        }
+
+        public Integer getLoyalty_pointd() {
+            return loyalty_pointd;
+        }
+
+        public void setLoyalty_pointd(Integer loyalty_pointd) {
+            this.loyalty_pointd = loyalty_pointd;
+        }
+    }
+
 }

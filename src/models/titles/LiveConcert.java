@@ -1,16 +1,16 @@
 package models.titles;
 
-public class live_concert extends audio{
+public class LiveConcert extends Audio {
 
 
     private String Event_name;
 
-    public live_concert(Integer ID, String title, String year_Release, String band_name, String event_name) {
+    public LiveConcert(Integer ID, String title, String year_Release, String band_name, String event_name) {
         super(ID, title, year_Release, band_name);
         Event_name = event_name;
     }
 
-    public live_concert(String title, String year_Release, String band_name, String event_name) {
+    public LiveConcert(String title, String year_Release, String band_name, String event_name) {
         super(title, year_Release, band_name);
         Event_name = event_name;
     }
@@ -25,7 +25,7 @@ public class live_concert extends audio{
 
     @Override
     public String toString() {
-        return "live_concert{" +
+        return "LiveConcert{" +
                 "Event_name='" + Event_name + '\'' +
                 ", ID=" + ID +
                 ", Title='" + Title + '\'' +
