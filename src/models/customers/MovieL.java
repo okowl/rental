@@ -7,7 +7,14 @@ import java.util.List;
 public class MovieL extends Customer<Movies> {
 
 
-    public MovieL(Integer ID, String name, String address, String customer_type, List<Movies> rent_history) {
-        super(ID, name, address, customer_type, rent_history);
+
+    public MovieL(Integer ID, String name, String address) {
+        super(ID, name, address);
+        customer_type = this.getClass().getSimpleName();
+    }
+
+    public MovieL(String name, String address) {
+        super(name, address);
+        customer_type = this.getClass().getSimpleName();
     }
 }

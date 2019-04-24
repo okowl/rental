@@ -6,7 +6,7 @@ import models.titles.Titles;
 
 import java.util.List;
 
-public class Controller implements Opt_r {
+public class Controller implements Options4Menu {
 
 
     private List <Customer> Customer_list;

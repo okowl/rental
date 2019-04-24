@@ -1,43 +1,29 @@
 package models.customers;
 
+import models.Registry;
 import models.titles.Titles;
 
 import java.util.List;
 
-public class Customer <T extends Titles> {
+public class Customer <T extends Titles> extends Registry {
 
-    private Integer ID;
-    private String Name;
-    private String address;
-    private String customer_type;
-    private List <T> Rent_history;
-    private Membership_card membership_card;
-    private static Integer customers_counter = 0;
 
-    public Customer(Integer ID, String name, String address, String customer_type, List<T> rent_history) {
-        this.ID = ID;
-        Name = name;
+    protected String address;
+    protected String customer_type;
+    protected List <T> Rent_history;
+    protected Membership_card membership_card;
+    public static Integer customers_counter = 0;
+
+
+
+    public Customer(Integer ID, String name, String address) {
+        super(ID, name);
         this.address = address;
-        this.customer_type = customer_type;
-        Rent_history = rent_history;
-        //this.membership_card = membership_card;
-
     }
 
-    public Integer getID() {
-        return ID;
-    }
-
-    public void setID(Integer ID) {
-        this.ID = ID;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
+    public Customer(String name, String address) {
+        super(customers_counter+1, name);
+        this.address = address;
     }
 
     public String getAddress() {
@@ -80,13 +66,10 @@ public class Customer <T extends Titles> {
         Customer.customers_counter = customers_counter;
     }
 
-
     @Override
     public String toString() {
         return "Customer{" +
-                "ID=" + ID +
-                ", Name='" + Name + '\'' +
-                ", address='" + address + '\'' +
+                "address='" + address + '\'' +
                 ", customer_type='" + customer_type + '\'' +
                 ", Rent_history=" + Rent_history +
                 ", membership_card=" + membership_card +

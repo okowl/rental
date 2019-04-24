@@ -1,6 +1,6 @@
 package controller;
 
-public interface Opt_r {
+public interface Options4Menu {
 
     void serach4title();
     //void serch4artist();

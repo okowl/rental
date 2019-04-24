@@ -6,7 +6,14 @@ import java.util.List;
 
 public class TVL extends Customer<BoxSet> {
 
-    public TVL(Integer ID, String name, String address, String customer_type, List<BoxSet> rent_history) {
-        super(ID, name, address, customer_type, rent_history);
+
+    public TVL(Integer ID, String name, String address) {
+        super(ID, name, address);
+        customer_type = this.getClass().getSimpleName();
+    }
+
+    public TVL(String name, String address) {
+        super(name, address);
+        customer_type = this.getClass().getSimpleName();
     }
 }
