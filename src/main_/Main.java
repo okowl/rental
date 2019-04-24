@@ -1,11 +1,12 @@
 package main_;
 
 
+import controller.Controller;
 
 public class Main {
 
 
 public static void Main(){
-    new Main();
+    Controller.getInstance();
 }
 }
