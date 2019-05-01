@@ -17,6 +17,14 @@ public abstract class Registry {
         Name = name;
     }
 
+    public Registry() {
+    }
+
+    public Registry(Integer counter_id) {
+
+        ID = counter_id;
+    }
+
     public Integer getID() {
         return ID;
     }

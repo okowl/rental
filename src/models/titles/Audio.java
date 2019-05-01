@@ -17,11 +17,15 @@ public abstract class Audio extends Titles {
         Band_name = band_name;
     }
 
+    public Audio(Integer counter_id) {
+        super(counter_id);
+    }
+
     public String getBand_name() {
         return Band_name;
     }
 
-    public void setBand_name(String band_name) {
+    public void setBandName(String band_name) {
         Band_name = band_name;
     }
 

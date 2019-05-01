@@ -2,7 +2,8 @@ package controller;
 
 import models.customers.*;
 import models.rent.Rent;
-import models.titles.Titles;
+import models.titles.*;
+
 import static controller.utility.Utility.*;
 
 import java.util.ArrayList;
@@ -19,9 +20,9 @@ import java.util.stream.Collectors;
 public class Controller implements Options4Menu {
 
 
-    private List <Customer> Customer_list;
-    private List <Titles> Titles_list;
-    private List <Rent> Rented_items;
+    private List <Customer> customerList;
+    private List <Titles> titlesList;
+    private List <Rent> rentedItems;
 
     private static Controller controller;
 
@@ -37,25 +38,33 @@ public class Controller implements Options4Menu {
 
     private Controller() {
 
-        Customer_list = new ArrayList<>();
-
-        addNewCustomers();
-
-        search4Customers();
-
-//        MusicL musicL = new MusicL("Felipe","foo");
-//        MusicL musicL1= new MusicL("Olga","Bar");
-//        TVL foo = new TVL("example", "exampleAddress");
-//
-//        System.out.println(musicL);
-//        System.out.println(musicL1);
-//        System.out.println(foo);
-//
-
+        customerList = new ArrayList<>();
+        titlesList = new ArrayList<>();
+        menu();
 
     }
 
     public void menu(){
+
+        String chosenOption = readInput("[1-8]", "Please chose one of the menu item:" +
+                "\nSearch for title\nSearch for customer"); //TODO all of the rest
+        switch (chosenOption){
+
+            case "1":
+                serach4Title();
+                break;
+            case "2":
+                search4Customers();
+                break;
+            case "3":
+                addNewCustomers();
+                break;
+            case "4":
+                addNewTitle();
+                break;
+
+
+        }
 
     }
 
@@ -63,13 +72,16 @@ public class Controller implements Options4Menu {
     @Override
     public void serach4Title() {
 
+        System.out.println(titlesList);
+
+        menu();
     }
 
     @Override
     public void search4Customers() {
         String input = readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
                 "Please insert Name, ID or customer address");
-        List<Customer> filteredCustomers = Customer_list.stream().filter(cm->cm.getName()
+        List<Customer> filteredCustomers = customerList.stream().filter(cm->cm.getName()
                 .toLowerCase().contains(input) ||
                 cm.getAddress().toLowerCase().contains(input)).collect(Collectors.toList());
 
@@ -78,12 +90,91 @@ public class Controller implements Options4Menu {
             System.out.println(customer);
         }
 
+        menu();
+
     }
 
     @Override
     public void addNewTitle() {
 
+        prnt("Please chose one of the following options:" +
+                "\n1 - new Music Album\n2 - new Live Concert\n3 - new TV-show\n4 - new Movie");
+
+       Map <String, Titles> titleMapper = new HashMap<>();
+        titleMapper.put("1", new Music());
+        titleMapper.put("2", new LiveConcert());
+        titleMapper.put("3", new BoxSet());
+        titleMapper.put("4", new Movies());
+
+        String optionChosen = readInput("[1-4]", "Please use just numbers");
+        Titles title = null;
+
+        switch (optionChosen){
+            case "1":
+                title = createMusic((Music)titleMapper.get("1"));
+                break;
+            case "2":
+                title = createLiveConcert((LiveConcert)titleMapper.get("2"));
+                break;
+            case "3":
+                title = createBoxSet((BoxSet)titleMapper.get("3"));
+                break;
+            case "4":
+                title = createMovie((Movies)titleMapper.get("4"));
+                break;
+        }
+
+        titlesList.add(title);
+
+        menu();
+
     }
+
+    private Titles createMovie(Movies movies) {
+
+        movies.setName(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a movie name"));
+        movies.setDirector(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a director name"));
+        movies.setGenre(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a movie genre"));
+        movies.setRewards(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter any rewards that movie won"));
+        movies.setYearRelease(readInput("[0-9]{4}","Please enter year of release"));
+
+        return movies;
+    }
+
+
+    private Titles createBoxSet(BoxSet boxSet) {
+
+        boxSet.setName(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a TV-show name"));
+        boxSet.setDirector(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a director name"));
+        boxSet.setGenre(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a movie genre"));
+        boxSet.setNumSeasons(Integer.parseInt(readInput("[1-9]{4}","Please enter number of seasons")));
+        boxSet.setYearRelease(readInput("[0-9]{4}","Please enter year of release"));
+
+        return boxSet;
+    }
+
+    private Titles createLiveConcert(LiveConcert liveConcert) {
+
+        liveConcert.setName(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a Live concert name"));
+        liveConcert.setBandName(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a band name"));
+        liveConcert.setEventName(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter an Event name"));
+        liveConcert.setYearRelease(readInput("[0-9]{4}","Please enter year of release"));
+
+
+        return liveConcert;
+    }
+
+    private Titles createMusic(Music music) {
+
+        music.setName(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter an album name"));
+        music.setBandName(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a band name"));
+        music.setGenre(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter an album genre"));
+        music.setYearRelease(readInput("[0-9]{4}","Please enter year of release"));
+
+
+        return music;
+    }
+
 
     /**
      *
@@ -96,7 +187,7 @@ public class Controller implements Options4Menu {
                 readInput("^[A-Za-z _]*[A-Za-z][A-Za-z _]*$","Please enter customer full name"),
                 readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter customer full address")
         );
-        //Customer_list.add(cm);
+        //customerList.add(cm);
 
         Map<String, Customer> options = new HashMap<>();
         options.put("1", new MusicL(cm));
@@ -114,23 +205,23 @@ public class Controller implements Options4Menu {
 
         switch (chosenOption){
             case "1":
-                Customer_list
+                customerList
                         .add(options
                                 .get("1"));
                 break;
             case "2":
-                Customer_list.add(options.get("2"));
+                customerList.add(options.get("2"));
                 break;
             case "3":
-                Customer_list.add(options.get("3"));
+                customerList.add(options.get("3"));
                 break;
             case "4":
-                Customer_list.add(options.get("4"));
+                customerList.add(options.get("4"));
                 break;
 
         }
 
-
+        menu();
     }
 
     @Override

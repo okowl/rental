@@ -22,6 +22,14 @@ public abstract class Viseo extends Titles {
         Genre = genre;
     }
 
+    public Viseo() {
+    }
+
+    public Viseo(Integer counter_id) {
+
+        super(counter_id);
+    }
+
     public String getDirector() {
         return Director;
     }

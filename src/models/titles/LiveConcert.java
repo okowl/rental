@@ -18,11 +18,15 @@ public class LiveConcert extends Audio {
         Event_name = event_name;
     }
 
+    public LiveConcert(){
+        super(counter_id);
+    }
+
     public String getEvent_name() {
         return Event_name;
     }
 
-    public void setEvent_name(String event_name) {
+    public void setEventName(String event_name) {
         Event_name = event_name;
     }
 

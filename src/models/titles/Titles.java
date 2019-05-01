@@ -8,7 +8,7 @@ public abstract class Titles extends Registry {
      * A high level abstraction for all titles
      */
 
-    public static Integer counter_id = 0;
+    public static Integer counter_id = 1;
     public String Year_Release;
 
     public Titles(Integer ID, String name, String year_Release) {
@@ -19,6 +19,16 @@ public abstract class Titles extends Registry {
     public Titles( String name, String year_Release) {
         super(counter_id+1, name);
         Year_Release = year_Release;
+    }
+
+    public Titles() {
+        super();
+    }
+
+    public Titles(Integer counter_id) {
+        super(counter_id);
+        counter_id +=1;
+
     }
 
     public static Integer getCounter_id() {
@@ -33,7 +43,7 @@ public abstract class Titles extends Registry {
         return Year_Release;
     }
 
-    public void setYear_Release(String year_Release) {
+    public void setYearRelease(String year_Release) {
         Year_Release = year_Release;
     }
 

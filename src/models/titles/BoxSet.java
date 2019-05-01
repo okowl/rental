@@ -18,11 +18,16 @@ public class BoxSet extends Viseo {
         this.num_seasons = num_seasons;
     }
 
+    public BoxSet() {
+        super(counter_id);
+
+    }
+
     public Integer getNum_seasons() {
         return num_seasons;
     }
 
-    public void setNum_seasons(Integer num_seasons) {
+    public void setNumSeasons(Integer num_seasons) {
         this.num_seasons = num_seasons;
     }
 

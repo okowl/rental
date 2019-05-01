@@ -18,6 +18,10 @@ public class Movies extends Viseo {
         Rewards = rewards;
     }
 
+    public Movies() {
+        super(counter_id);
+    }
+
     public String getRewards() {
         return Rewards;
     }

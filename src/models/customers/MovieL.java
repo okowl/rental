@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MovieL extends Customer<Movies> {
 
-    //just two different constructors
+    //just different constructors
 
     //with all the parameters needed
     public MovieL(Integer ID, String name, String address, Membership_card membership_card) {

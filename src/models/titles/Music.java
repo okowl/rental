@@ -18,6 +18,10 @@ public class Music extends Audio {
         Genre = genre;
     }
 
+    public Music() {
+        super(counter_id);
+    }
+
     public String getGenre() {
         return Genre;
     }
