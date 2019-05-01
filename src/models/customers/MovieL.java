@@ -21,5 +21,8 @@ public class MovieL extends Customer<Movies> {
     }
 
 
-
+    public MovieL(Customer cm) {
+        super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembership_card());
+        customer_type = this.getClass().getSimpleName();
+    }
 }

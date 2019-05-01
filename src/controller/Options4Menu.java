@@ -5,12 +5,12 @@ package controller;
  * */
 public interface Options4Menu {
 
-    void serach4title();
+    void serach4Title();
     //void serch4artist();
-    void search4customers();
-    void add_new_title();
-    void add_new_customers();
-    void upd_cutomer();
-    void record_rent();
-    void return_rent();
+    void search4Customers();
+    void addNewTitle();
+    void addNewCustomers();
+    void updCutomer();
+    void recordRent();
+    void returnRent();
 }

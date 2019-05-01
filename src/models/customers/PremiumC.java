@@ -21,4 +21,9 @@ public class PremiumC extends Customer<Titles> {
         super(name, address);
         customer_type = this.getClass().getSimpleName();
     }
+
+    public PremiumC(Customer cm) {
+        super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembership_card());
+        customer_type = this.getClass().getSimpleName();
+    }
 }

@@ -17,4 +17,9 @@ public class TVL extends Customer<BoxSet> {
         super(name, address);
         customer_type = this.getClass().getSimpleName();
     }
+
+    public TVL(Customer cm) {
+        super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembership_card());
+        customer_type = this.getClass().getSimpleName();
+    }
 }

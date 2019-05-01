@@ -17,4 +17,9 @@ public class MusicL extends Customer <Audio>{
         super(name, address);
         customer_type = this.getClass().getSimpleName();
     }
+
+    public MusicL(Customer cm) {
+        super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembership_card());
+        customer_type = this.getClass().getSimpleName();
+    }
 }
