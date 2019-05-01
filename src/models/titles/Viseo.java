@@ -10,19 +10,24 @@ public abstract class Viseo extends Titles {
     private String Director;
     private String Genre;
 
+
     public Viseo(Integer ID, String title, String year_Release, String director, String genre) {
         super(ID, title, year_Release);
         Director = director;
         Genre = genre;
+        mediaType = MediaType.DVD;
+
     }
 
     public Viseo(String title, String year_Release, String director, String genre) {
         super(title, year_Release);
         Director = director;
         Genre = genre;
+        mediaType = MediaType.DVD;
     }
 
     public Viseo() {
+        mediaType = MediaType.DVD;
     }
 
     public Viseo(Integer counter_id) {
@@ -53,6 +58,7 @@ public abstract class Viseo extends Titles {
                 "Director='" + Director + '\'' +
                 ", Genre='" + Genre + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
+                ", mediaType=" + mediaType +
                 ", ID=" + ID +
                 ", Name='" + Name + '\'' +
                 '}';

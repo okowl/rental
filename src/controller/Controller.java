@@ -46,8 +46,9 @@ public class Controller implements Options4Menu {
 
     public void menu(){
 
-        String chosenOption = readInput("[1-8]", "Please chose one of the menu item:" +
-                "\nSearch for title\nSearch for customer"); //TODO all of the rest
+        String chosenOption = readInput("[1-7]", "Please chose one of the menu item:" +
+                "\n1. Search for title\n2. Search for customer\n3. Add new customer \n4. Add new title\n" +
+                "5. Update customer profile\n6. Record a new rent\n7. Return a rented item");
         switch (chosenOption){
 
             case "1":
@@ -62,7 +63,15 @@ public class Controller implements Options4Menu {
             case "4":
                 addNewTitle();
                 break;
-
+            case "5":
+                updCutomer();
+                break;
+            case "6":
+                recordRent();
+                break;
+            case "7":
+                returnRent();
+                break;
 
         }
 

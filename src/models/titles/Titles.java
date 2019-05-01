@@ -10,6 +10,7 @@ public abstract class Titles extends Registry {
 
     public static Integer counter_id = 1;
     public String Year_Release;
+    protected MediaType mediaType;
 
     public Titles(Integer ID, String name, String year_Release) {
         super(ID, name);

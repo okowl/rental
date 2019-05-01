@@ -11,15 +11,18 @@ public class LiveConcert extends Audio {
     public LiveConcert(Integer ID, String title, String year_Release, String band_name, String event_name) {
         super(ID, title, year_Release, band_name);
         Event_name = event_name;
+        mediaType = MediaType.Blue_Ray;
     }
 
     public LiveConcert(String title, String year_Release, String band_name, String event_name) {
         super(title, year_Release, band_name);
         Event_name = event_name;
+        mediaType = MediaType.Blue_Ray;
     }
 
     public LiveConcert(){
         super(counter_id);
+        mediaType = MediaType.Blue_Ray;
     }
 
     public String getEvent_name() {
@@ -35,6 +38,7 @@ public class LiveConcert extends Audio {
         return "LiveConcert{" +
                 "Event_name='" + Event_name + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
+                ", mediaType=" + mediaType +
                 ", ID=" + ID +
                 ", Name='" + Name + '\'' +
                 '}';

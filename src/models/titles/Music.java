@@ -11,15 +11,18 @@ public class Music extends Audio {
     public Music(Integer ID, String title, String year_Release, String band_name, String genre) {
         super(ID, title, year_Release, band_name);
         Genre = genre;
+        mediaType = MediaType.CD;
     }
 
     public Music(String title, String year_Release, String band_name, String genre) {
         super(title, year_Release, band_name);
         Genre = genre;
+        mediaType = MediaType.CD;
     }
 
     public Music() {
         super(counter_id);
+        mediaType = MediaType.CD;
     }
 
     public String getGenre() {
@@ -35,6 +38,7 @@ public class Music extends Audio {
         return "Music{" +
                 "Genre='" + Genre + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
+                ", mediaType=" + mediaType +
                 ", ID=" + ID +
                 ", Name='" + Name + '\'' +
                 '}';
