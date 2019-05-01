@@ -20,7 +20,7 @@ public class MovieL extends Customer<Movies> {
         customer_type = this.getClass().getSimpleName();
     }
 
-
+    //and this one is used to create a new customer
     public MovieL(Customer cm) {
         super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembership_card());
         customer_type = this.getClass().getSimpleName();

@@ -6,7 +6,6 @@ package controller;
 public interface Options4Menu {
 
     void serach4Title();
-    //void serch4artist();
     void search4Customers();
     void addNewTitle();
     void addNewCustomers();

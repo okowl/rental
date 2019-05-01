@@ -9,7 +9,7 @@ import models.titles.Titles;
  */
 public class PremiumC extends Customer<Titles> {
 
-    //just two different constructors
+    //just different constructors
 
     //with all the parameters needed
     public PremiumC(Integer ID, String name, String address, Membership_card membership_card) {
@@ -22,6 +22,7 @@ public class PremiumC extends Customer<Titles> {
         customer_type = this.getClass().getSimpleName();
     }
 
+    //this one is actually used in constructor to create a new customer
     public PremiumC(Customer cm) {
         super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembership_card());
         customer_type = this.getClass().getSimpleName();

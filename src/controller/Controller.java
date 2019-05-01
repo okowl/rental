@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /***
  * This is singleton controller
@@ -43,6 +44,11 @@ public class Controller implements Options4Menu {
         menu();
 
     }
+
+    /**
+     * menu navigation method
+     * it just print stuff and redirect user based on the chosen option
+     */
 
     public void menu(){
 
@@ -77,6 +83,11 @@ public class Controller implements Options4Menu {
 
     }
 
+    /**
+     * Lambda method to search for a title name
+     * it runs through array list of titles and streams all objects that maches to the input into the separate stream
+     * This stream will be printed to the stuff
+     */
 
     @Override
     public void serach4Title() {
@@ -84,8 +95,12 @@ public class Controller implements Options4Menu {
         String input = readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
                 "Please insert title name, ID or customer address");
         List<Titles> filteredCustomers = titlesList.stream().filter(title->{
+            //if title belongs to the live concert or music we also checking band name
             if(title.getClass().getSimpleName().equals(Music.class.getSimpleName())){
                 return ((Music)title).getBand_name().toLowerCase().contains(input.toLowerCase());
+            }
+            if(title.getClass().getSimpleName().equals(LiveConcert.class.getSimpleName())){
+                return ((LiveConcert)title).getBand_name().toLowerCase().contains(input.toLowerCase());
             }
             return title.getName().toLowerCase().contains(input.toLowerCase());
         }).collect(Collectors.toList());
@@ -97,6 +112,12 @@ public class Controller implements Options4Menu {
 
         menu();
     }
+
+    /**
+     * Lambda method to search for a customer
+     * It run through Customers list and streams all objects that matches to the search string to the new array
+     * This array get prints in the end
+     */
 
     @Override
     public void search4Customers() {
@@ -114,6 +135,12 @@ public class Controller implements Options4Menu {
         menu();
 
     }
+
+    /**
+     * Method that adds new titles to the titles list
+     * After stuff chose which title in particular they want to add it will redirect it to the specefic method
+     * which will feel all the parameters for a new title and add it then to the Title list
+     */
 
     @Override
     public void addNewTitle() {
@@ -145,11 +172,35 @@ public class Controller implements Options4Menu {
                 break;
         }
 
-        titlesList.add(title);
+        /**
+         * this part still not working as expected
+         * problem: all of the object has same IDs
+         * TODO: troubleshooting if have time left
+         */
 
+//        //adding many boxes of the same title if shop will get more than one
+//        Integer copiesOfTitle = Integer.parseInt(readInput
+//                ("[0-9]+", "Hom many copies you want to add? (please use just numbers)"));
+//
+//        //for loop that adds title to the list with a new ID
+
+//        for(int i = 0; i < copiesOfTitle; i++){
+//            titlesList.add(title);
+//            Titles.incrementCounter();
+//        }
+//
+
+        titlesList.add(title);
         menu();
 
     }
+
+    /**
+     * Method to set all of the parameters of the new movie title
+     * Using utility to validate and print message
+     * @param movies
+     * @return movie object back to addNewTitle method in order to add it to the TitleList
+     */
 
     private Titles createMovie(Movies movies) {
 
@@ -162,7 +213,12 @@ public class Controller implements Options4Menu {
         return movies;
     }
 
-
+    /**
+     * Method to set all of the parameters of the new movie title
+     * Using utility to validate and print message
+     * @param boxSet
+     * @return TV show object back to addNewTitle method in order to add it to the TitleList
+     */
     private Titles createBoxSet(BoxSet boxSet) {
 
         boxSet.setName(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a TV-show name"));
@@ -173,6 +229,13 @@ public class Controller implements Options4Menu {
 
         return boxSet;
     }
+
+    /**
+     * Method to set all of the parameters of the new movie title
+     * Using utility to validate and print message
+     * @param liveConcert
+     * @return a Live Concert object back to addNewTitle method in order to add it to the TitleList
+     */
 
     private Titles createLiveConcert(LiveConcert liveConcert) {
 
@@ -185,6 +248,12 @@ public class Controller implements Options4Menu {
         return liveConcert;
     }
 
+    /**
+     * Method to set all of the parameters of the new movie title
+     * Using utility to validate and print message
+     * @param music
+     * @return a new album object back to addNewTitle method in order to add it to the TitleList
+     */
     private Titles createMusic(Music music) {
 
         music.setName(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter an album name"));
@@ -198,7 +267,7 @@ public class Controller implements Options4Menu {
 
 
     /**
-     *
+     * Method to make a new customer
      */
 
     @Override
@@ -208,7 +277,6 @@ public class Controller implements Options4Menu {
                 readInput("^[A-Za-z _]*[A-Za-z][A-Za-z _]*$","Please enter customer full name"),
                 readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter customer full address")
         );
-        //customerList.add(cm);
 
         Map<String, Customer> options = new HashMap<>();
         options.put("1", new MusicL(cm));
@@ -221,8 +289,6 @@ public class Controller implements Options4Menu {
         prntMe("1 - for Music Lovers, 2 - TV Lovers, 3 - Movie Lovers,4 - for Premium");
 
         String chosenOption = readInput("[1-4]", "Please just use numbers");
-
-
 
         switch (chosenOption){
             case "1":

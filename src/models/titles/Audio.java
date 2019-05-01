@@ -7,6 +7,8 @@ public abstract class Audio extends Titles {
 
     protected String Band_name;
 
+    //different constructors to create a new object of this type
+
     public Audio(Integer ID, String title, String year_Release, String band_name) {
         super(ID, title, year_Release);
         Band_name = band_name;

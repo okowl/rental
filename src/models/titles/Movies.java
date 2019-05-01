@@ -8,6 +8,8 @@ public class Movies extends Viseo {
 
     private String Rewards;
 
+    //different constructors to create a new object of this type
+
     public Movies(Integer ID, String title, String year_Release, String director, String genre, String rewards) {
         super(ID, title, year_Release, director, genre);
         Rewards = rewards;

@@ -12,6 +12,8 @@ public abstract class Titles extends Registry {
     public String Year_Release;
     protected MediaType mediaType;
 
+    //different constructors to create a new object
+
     public Titles(Integer ID, String name, String year_Release) {
         super(ID, name);
         Year_Release = year_Release;
@@ -46,6 +48,10 @@ public abstract class Titles extends Registry {
 
     public void setYearRelease(String year_Release) {
         Year_Release = year_Release;
+    }
+
+    public static void incrementCounter(){
+        counter_id +=1;
     }
 
     @Override

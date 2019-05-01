@@ -8,6 +8,8 @@ public class BoxSet extends Viseo {
      * Model for TW-shows titles
      */
 
+    //different constructors to create a new object of this type
+
     public BoxSet(Integer ID, String title, String year_Release, String director, String genre, Integer num_seasons) {
         super(ID, title, year_Release, director, genre);
         this.num_seasons = num_seasons;

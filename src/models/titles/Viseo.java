@@ -10,6 +10,8 @@ public abstract class Viseo extends Titles {
     private String Director;
     private String Genre;
 
+    //different constructors to create a new object of this type
+
 
     public Viseo(Integer ID, String title, String year_Release, String director, String genre) {
         super(ID, title, year_Release);

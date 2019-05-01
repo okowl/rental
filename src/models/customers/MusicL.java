@@ -4,7 +4,7 @@ import models.titles.Audio;
 
 public class MusicL extends Customer <Audio>{
 
-    //just two different constructors
+    //just different constructors
 
     //with all the parameters needed
     public MusicL(Integer ID, String name, String address, Membership_card membership_card) {
@@ -17,7 +17,7 @@ public class MusicL extends Customer <Audio>{
         super(name, address);
         customer_type = this.getClass().getSimpleName();
     }
-
+    //this one is actually used in constructor to create a new customer
     public MusicL(Customer cm) {
         super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembership_card());
         customer_type = this.getClass().getSimpleName();

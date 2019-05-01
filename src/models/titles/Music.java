@@ -8,6 +8,8 @@ public class Music extends Audio {
 
     private String Genre;
 
+    //different constructors to create a new object of this type
+
     public Music(Integer ID, String title, String year_Release, String band_name, String genre) {
         super(ID, title, year_Release, band_name);
         Genre = genre;

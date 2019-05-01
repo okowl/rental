@@ -8,6 +8,8 @@ public class LiveConcert extends Audio {
 
     private String Event_name;
 
+    //different constructors to create a new object of this type
+
     public LiveConcert(Integer ID, String title, String year_Release, String band_name, String event_name) {
         super(ID, title, year_Release, band_name);
         Event_name = event_name;
