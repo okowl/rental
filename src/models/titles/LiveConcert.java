@@ -37,6 +37,7 @@ public class LiveConcert extends Audio {
     public String toString() {
         return "LiveConcert{" +
                 "Event_name='" + Event_name + '\'' +
+                ", Band_name='" + Band_name + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
                 ", mediaType=" + mediaType +
                 ", ID=" + ID +

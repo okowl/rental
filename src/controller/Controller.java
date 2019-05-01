@@ -81,7 +81,19 @@ public class Controller implements Options4Menu {
     @Override
     public void serach4Title() {
 
-        System.out.println(titlesList);
+        String input = readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
+                "Please insert title name, ID or customer address");
+        List<Titles> filteredCustomers = titlesList.stream().filter(title->{
+            if(title.getClass().getSimpleName().equals(Music.class.getSimpleName())){
+                return ((Music)title).getBand_name().toLowerCase().contains(input.toLowerCase());
+            }
+            return title.getName().toLowerCase().contains(input.toLowerCase());
+        }).collect(Collectors.toList());
+
+        for (Titles titles :filteredCustomers
+        ) {
+            System.out.println(titles);
+        }
 
         menu();
     }
@@ -91,8 +103,8 @@ public class Controller implements Options4Menu {
         String input = readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
                 "Please insert Name, ID or customer address");
         List<Customer> filteredCustomers = customerList.stream().filter(cm->cm.getName()
-                .toLowerCase().contains(input) ||
-                cm.getAddress().toLowerCase().contains(input)).collect(Collectors.toList());
+                .toLowerCase().contains(input.toLowerCase()) ||
+                cm.getAddress().toLowerCase().contains(input.toLowerCase())).collect(Collectors.toList());
 
         for (Customer customer :filteredCustomers
              ) {
@@ -155,8 +167,8 @@ public class Controller implements Options4Menu {
 
         boxSet.setName(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a TV-show name"));
         boxSet.setDirector(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a director name"));
-        boxSet.setGenre(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a movie genre"));
-        boxSet.setNumSeasons(Integer.parseInt(readInput("[1-9]{4}","Please enter number of seasons")));
+        boxSet.setGenre(readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter a TV-Show genre"));
+        boxSet.setNumSeasons(Integer.parseInt(readInput("[0-9]+","Please enter number of seasons")));
         boxSet.setYearRelease(readInput("[0-9]{4}","Please enter year of release"));
 
         return boxSet;

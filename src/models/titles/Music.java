@@ -37,6 +37,7 @@ public class Music extends Audio {
     public String toString() {
         return "Music{" +
                 "Genre='" + Genre + '\'' +
+                ", Band_name='" + Band_name + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
                 ", mediaType=" + mediaType +
                 ", ID=" + ID +

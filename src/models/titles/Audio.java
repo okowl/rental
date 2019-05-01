@@ -5,7 +5,7 @@ public abstract class Audio extends Titles {
      * A high level abstraction for Music and Live concert class
      */
 
-    private String Band_name;
+    protected String Band_name;
 
     public Audio(Integer ID, String title, String year_Release, String band_name) {
         super(ID, title, year_Release);
