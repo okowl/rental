@@ -23,6 +23,10 @@ public abstract class Audio extends Titles {
         super(counter_id);
     }
 
+    public Audio(Integer id, String name) {
+        super(id, name);
+    }
+
     public String getBand_name() {
         return Band_name;
     }

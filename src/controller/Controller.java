@@ -1,5 +1,6 @@
 package controller;
 
+import models.Registry;
 import models.customers.*;
 import models.rent.Rent;
 import models.titles.*;
@@ -178,19 +179,17 @@ public class Controller implements Options4Menu {
          * TODO: troubleshooting if have time left
          */
 
-//        //adding many boxes of the same title if shop will get more than one
-//        Integer copiesOfTitle = Integer.parseInt(readInput
-//                ("[0-9]+", "Hom many copies you want to add? (please use just numbers)"));
-//
-//        //for loop that adds title to the list with a new ID
+        //adding many boxes of the same title if shop will get more than one
+        Integer copiesOfTitle = Integer.parseInt(readInput
+                ("[0-9]+", "Hom many copies you want to add? (please use just numbers)"));
 
-//        for(int i = 0; i < copiesOfTitle; i++){
-//            titlesList.add(title);
-//            Titles.incrementCounter();
-//        }
-//
+        //for loop that adds title to the list with a new ID
+        for(int i = 0; i < copiesOfTitle; i++){
+            titlesList.add(Titles.fatory(title, optionChosen));
+            Titles.incrementCounter();
+        }
 
-        titlesList.add(title);
+
         menu();
 
     }

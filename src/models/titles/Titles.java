@@ -2,6 +2,8 @@ package models.titles;
 
 import models.Registry;
 
+import java.util.Map;
+
 public abstract class Titles extends Registry {
 
     /**
@@ -34,6 +36,10 @@ public abstract class Titles extends Registry {
 
     }
 
+    public Titles(Integer id, String name) {
+        super(id, name);
+    }
+
     public static Integer getCounter_id() {
         return counter_id;
     }
@@ -41,6 +47,23 @@ public abstract class Titles extends Registry {
     public static void setCounter_id(Integer counter_id) {
         Titles.counter_id = counter_id;
     }
+
+    public static Titles fatory(Titles title, String optionChosen) {
+        switch (optionChosen){
+            case "1":
+                return new Music((Music) title, counter_id);
+            case "2":
+                return new LiveConcert((LiveConcert) title, counter_id);
+            case "3":
+                return new BoxSet((BoxSet) title, counter_id);
+            case "4":
+                return new Movies((Movies)title, counter_id);
+            default:
+                return null;
+        }
+
+    }
+
 
     public String getYear_Release() {
         return Year_Release;

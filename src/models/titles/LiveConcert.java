@@ -27,6 +27,15 @@ public class LiveConcert extends Audio {
         mediaType = MediaType.Blue_Ray;
     }
 
+    public LiveConcert(LiveConcert title, Integer id) {
+            super(id, title.getName());
+            setBandName(title.getBand_name());
+            setYearRelease(title.getYear_Release());
+            setEventName(title.getEvent_name());
+            mediaType = MediaType.Blue_Ray;
+
+    }
+
     public String getEvent_name() {
         return Event_name;
     }

@@ -7,8 +7,8 @@ public abstract class Viseo extends Titles {
      */
 
 
-    private String Director;
-    private String Genre;
+    protected String Director;
+    protected String Genre;
 
     //different constructors to create a new object of this type
 
@@ -35,6 +35,10 @@ public abstract class Viseo extends Titles {
     public Viseo(Integer counter_id) {
 
         super(counter_id);
+    }
+
+    public Viseo(Integer id, String name) {
+        super(id, name);
     }
 
     public String getDirector() {
