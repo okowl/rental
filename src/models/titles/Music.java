@@ -21,11 +21,14 @@ public class Music extends Audio {
         this.genre = genre;
         mediaType = MediaType.CD;
     }
+    //constructor for the single new item
 
     public Music() {
         super(counter_id);
         mediaType = MediaType.CD;
     }
+
+    //constructor that uses for the Title factory
 
     public Music(Music title, Integer id) {
         super(id, title.getName());

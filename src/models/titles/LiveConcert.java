@@ -27,6 +27,9 @@ public class LiveConcert extends Audio {
         mediaType = MediaType.Blue_Ray;
     }
 
+
+    //constructor that uses for the Title factory
+
     public LiveConcert(LiveConcert title, Integer id) {
             super(id, title.getName());
             setBandName(title.getBand_name());

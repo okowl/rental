@@ -25,6 +25,9 @@ public class BoxSet extends Viseo {
 
     }
 
+
+    //constructor that uses for the Title factory
+
     public BoxSet(BoxSet title, Integer id) {
 
             super(id, title.getName());

@@ -48,7 +48,17 @@ public abstract class Titles extends Registry {
         Titles.counter_id = counter_id;
     }
 
-    public static Titles fatory(Titles title, String optionChosen) {
+    /**
+     * This method is used to create multiple new objects of the selected type
+     * such as boxset/movie and so on
+     * just incrementing id each iteration and saving the rest of input from the staff member
+     *
+     * @param title information that was inserted and validated form staff member
+     * @param optionChosen title type that was chosen by staff member
+     * @return new object of chosen type with incremented ID
+     */
+
+    public static Titles factory(Titles title, String optionChosen) {
         switch (optionChosen){
             case "1":
                 return new Music((Music) title, counter_id);

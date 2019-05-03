@@ -1,6 +1,5 @@
 package controller;
 
-import models.Registry;
 import models.customers.*;
 import models.rent.Rent;
 import models.titles.*;
@@ -12,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /***
  * This is singleton controller
@@ -183,9 +181,14 @@ public class Controller implements Options4Menu {
         Integer copiesOfTitle = Integer.parseInt(readInput
                 ("[0-9]+", "Hom many copies you want to add? (please use just numbers)"));
 
+        //if user decide to put 0 here
+        if (copiesOfTitle <= 0){
+            copiesOfTitle = 1;
+        }
+
         //for loop that adds title to the list with a new ID
         for(int i = 0; i < copiesOfTitle; i++){
-            titlesList.add(Titles.fatory(title, optionChosen));
+            titlesList.add(Titles.factory(title, optionChosen));
             Titles.incrementCounter();
         }
 

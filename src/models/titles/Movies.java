@@ -24,6 +24,9 @@ public class Movies extends Viseo {
         super(counter_id);
     }
 
+
+    //constructor that uses for the Title factory
+
     public Movies(Movies title, Integer id) {
 
         super(id, title.getName());
