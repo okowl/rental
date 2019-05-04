@@ -2,8 +2,6 @@ package models.customers;
 
 import models.titles.Movies;
 
-import java.util.List;
-
 public class MovieL extends Customer<Movies> {
 
     //just different constructors
@@ -11,18 +9,18 @@ public class MovieL extends Customer<Movies> {
     //with all the parameters needed
     public MovieL(Integer ID, String name, String address, Membership_card membership_card) {
         super(ID, name, address, membership_card);
-        customer_type = this.getClass().getSimpleName();
+        customerType = this.getClass().getSimpleName();
     }
 
     //and just another constructor to add more flexibility to the code and have more options
     public MovieL(String name, String address) {
         super(name, address);
-        customer_type = this.getClass().getSimpleName();
+        customerType = this.getClass().getSimpleName();
     }
 
     //and this one is used to create a new customer
     public MovieL(Customer cm) {
-        super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembership_card());
-        customer_type = this.getClass().getSimpleName();
+        super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembershipCard());
+        customerType = this.getClass().getSimpleName();
     }
 }

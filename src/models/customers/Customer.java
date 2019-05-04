@@ -9,24 +9,24 @@ public class Customer <T extends Titles> extends Registry {
 
 
     protected String address;
-    protected String customer_type;
+    protected String customerType;
     protected List <T> Rent_history;
-    protected Membership_card membership_card;
+    protected Membership_card membershipCard;
     public static Integer customers_counter = 1;
 
 
 
-    public Customer(Integer ID, String name, String address, Membership_card membership_card) {
+    public Customer(Integer ID, String name, String address, Membership_card membershipCard) {
         super(ID, name);
         this.address = address;
-        this.membership_card = membership_card;
+        this.membershipCard = membershipCard;
         customers_counter += 1;
     }
 
     public Customer(String name, String address) {
         super(customers_counter, name);
         this.address = address;
-        this.membership_card = initMembershipCard();
+        this.membershipCard = initMembershipCard();
         customers_counter += 1;
     }
 
@@ -44,12 +44,12 @@ public class Customer <T extends Titles> extends Registry {
         this.address = address;
     }
 
-    public String getCustomer_type() {
-        return customer_type;
+    public String getCustomerType() {
+        return customerType;
     }
 
-    public void setCustomer_type(String customer_type) {
-        this.customer_type = customer_type;
+    public void setCustomerType(String customerType) {
+        this.customerType = customerType;
     }
 
     public List<T> getRent_history() {
@@ -60,12 +60,12 @@ public class Customer <T extends Titles> extends Registry {
         Rent_history = rent_history;
     }
 
-    public Membership_card getMembership_card() {
-        return membership_card;
+    public Membership_card getMembershipCard() {
+        return membershipCard;
     }
 
-    public void setMembership_card(Membership_card membership_card) {
-        this.membership_card = membership_card;
+    public void setMembershipCard(Membership_card membershipCard) {
+        this.membershipCard = membershipCard;
     }
 
     public static Integer getCustomers_counter() {
@@ -80,9 +80,9 @@ public class Customer <T extends Titles> extends Registry {
     public String toString() {
         return "Customer{" +
                 "address='" + address + '\'' +
-                ", customer_type='" + customer_type + '\'' +
+                ", customerType='" + customerType + '\'' +
                 ", Rent_history=" + Rent_history +
-                ", membership_card=" + membership_card +
+                ", membershipCard=" + membershipCard +
                 ", ID=" + ID +
                 ", Name='" + Name + '\'' +
                 '}';

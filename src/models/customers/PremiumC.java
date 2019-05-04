@@ -14,17 +14,17 @@ public class PremiumC extends Customer<Titles> {
     //with all the parameters needed
     public PremiumC(Integer ID, String name, String address, Membership_card membership_card) {
         super(ID, name, address, membership_card);
-        customer_type = this.getClass().getSimpleName();
+        customerType = this.getClass().getSimpleName();
     }
 
     public PremiumC(String name, String address) {
         super(name, address);
-        customer_type = this.getClass().getSimpleName();
+        customerType = this.getClass().getSimpleName();
     }
 
     //this one is actually used in constructor to create a new customer
     public PremiumC(Customer cm) {
-        super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembership_card());
-        customer_type = this.getClass().getSimpleName();
+        super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembershipCard());
+        customerType = this.getClass().getSimpleName();
     }
 }

@@ -57,7 +57,7 @@ public class Controller implements Options4Menu {
         switch (chosenOption){
 
             case "1":
-                serach4Title();
+                search4Title();
                 break;
             case "2":
                 search4Customers();
@@ -69,7 +69,7 @@ public class Controller implements Options4Menu {
                 addNewTitle();
                 break;
             case "5":
-                updCutomer();
+                updCustomer();
                 break;
             case "6":
                 recordRent();
@@ -89,7 +89,7 @@ public class Controller implements Options4Menu {
      */
 
     @Override
-    public void serach4Title() {
+    public void search4Title() {
 
         String input = readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
                 "Please insert title name, ID or customer address");
@@ -121,7 +121,7 @@ public class Controller implements Options4Menu {
     @Override
     public void search4Customers() {
         String input = readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
-                "Please insert Name, ID or customer address");
+                "Please insert Name or customer address");
         List<Customer> filteredCustomers = customerList.stream().filter(cm->cm.getName()
                 .toLowerCase().contains(input.toLowerCase()) ||
                 cm.getAddress().toLowerCase().contains(input.toLowerCase())).collect(Collectors.toList());
@@ -136,6 +136,20 @@ public class Controller implements Options4Menu {
     }
 
     /**
+     * Method to find customer by ID for update customer method
+     * @param ID - customer id
+     * @return - list of customer sthat matches this ID
+     */
+
+    public void searchCustomerID(int ID) {
+         List<Customer> filteredCustomers = customerList.stream().filter(cm-> cm.getID().equals(ID)).collect(Collectors.toList());
+        for (Customer customer :filteredCustomers
+        ) {
+            System.out.println(customer);
+        }
+    }
+
+    /**
      * Method that adds new titles to the titles list
      * After stuff chose which title in particular they want to add it will redirect it to the specefic method
      * which will feel all the parameters for a new title and add it then to the Title list
@@ -144,7 +158,7 @@ public class Controller implements Options4Menu {
     @Override
     public void addNewTitle() {
 
-        prnt("Please chose one of the following options:" +
+        printWithDashes("Please chose one of the following options:" +
                 "\n1 - new Music Album\n2 - new Live Concert\n3 - new TV-show\n4 - new Movie");
 
        Map <String, Titles> titleMapper = new HashMap<>();
@@ -153,8 +167,9 @@ public class Controller implements Options4Menu {
         titleMapper.put("3", new BoxSet());
         titleMapper.put("4", new Movies());
 
-        String optionChosen = readInput("[1-4]", "Please use just numbers");
         Titles title = null;
+
+        String optionChosen = readInput("[1-4]", "Please use just numbers");
 
         switch (optionChosen){
             case "1":
@@ -267,9 +282,9 @@ public class Controller implements Options4Menu {
         return music;
     }
 
-
     /**
      * Method to make a new customer
+     * TODO: check how membership card is working and troubleshoot
      */
 
     @Override
@@ -286,17 +301,15 @@ public class Controller implements Options4Menu {
         options.put("3", new MovieL(cm));
         options.put("4", new PremiumC(cm));
 
-        prnt("Ask the customer what subscription type they want buy");
+        printWithDashes("Ask the customer what subscription type they want buy");
         prntMe("Choose one of options above:");
-        prntMe("1 - for Music Lovers, 2 - TV Lovers, 3 - Movie Lovers,4 - for Premium");
+        prntMe("1 - for Music Lovers, 2 - TV Lovers, 3 - Movie Lovers, 4 - for Premium");
 
         String chosenOption = readInput("[1-4]", "Please just use numbers");
 
         switch (chosenOption){
             case "1":
-                customerList
-                        .add(options
-                                .get("1"));
+                customerList.add(options.get("1"));
                 break;
             case "2":
                 customerList.add(options.get("2"));
@@ -313,9 +326,74 @@ public class Controller implements Options4Menu {
         menu();
     }
 
-    @Override
-    public void updCutomer() {
+    /**
+     * method to update selected customer information and then change it
+     */
 
+    @Override
+    public void updCustomer() {
+
+        int customerID = Integer.parseInt(readInput("[0-9]+", "Please, enter customer ID (use just numbers)"));
+        searchCustomerID(customerID);
+
+        String optionChosen = readInput("[1-3]", "What do you want to change: " +
+                "\n1. Name \n2. Address\n3. Membership type");
+
+
+        switch (optionChosen){
+            case "1":
+                updateCustomerName(customerID);
+                break;
+            case "2":
+                updateCustomerAddress(customerID);
+                break;
+            case "3":
+                updateMembership(customerID);
+                break;
+        }
+
+        menu();
+
+    }
+
+    /**
+     * method to update customer name
+     * @param customerID to find customer in array of customers
+     */
+
+    private void updateCustomerName(int customerID) {
+        String  newName= readInput("^[A-Za-z _]*[A-Za-z][A-Za-z _]*$","Please new name");
+        customerList.get(customerID-1).setName(newName);
+        prntMe("Customer name was successfully updated");
+    }
+
+    /**
+     * method to update customer address
+     * @param customerID to find customer in array of customers
+     */
+
+    private void updateCustomerAddress(int customerID) {
+        String  newAddress = readInput("^[A-Za-z _]*[A-Za-z][A-Za-z _]*$","Please new address");
+        customerList.get(customerID-1).setAddress(newAddress);
+        prntMe("Customer address was successfully updated");
+    }
+
+    /**
+     * method to change customer membership type
+     * @param customerID to find customer in array of customers
+     */
+
+    private void updateMembership(int customerID) {
+        String newPlan = "";
+        String optionChosen = readInput("[1-4]","Please chose one of the following options:" +
+                "\n1 - for Music Lovers, 2 - TV Lovers, 3 - Movie Lovers, 4 - for Premium");
+        if(optionChosen.equals("1")){ newPlan = "MusicL";
+        } else if(optionChosen.equals("2")){ newPlan = "TVL";
+        } else if (optionChosen.equals("3")){newPlan = "MovieL";
+        }else if(optionChosen.equals("4")){newPlan = "PremiumC";}
+
+        customerList.get(customerID-1).setCustomerType(newPlan);
+        prntMe("Customer plan was successfully updated");
     }
 
     @Override

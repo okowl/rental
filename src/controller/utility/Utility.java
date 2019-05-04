@@ -1,10 +1,8 @@
 package controller.utility;
 
-import sun.util.locale.provider.FallbackLocaleProviderAdapter;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.function.BiConsumer;
 
 public class Utility {
 
@@ -13,10 +11,10 @@ public class Utility {
      * @param text - string that will be printed
      */
 
-    public static void prnt(String text){
-        System.out.println("----------------------------------------\n");
+    public static void printWithDashes(String text){
+        System.out.println("----------------------------------------------------------------------\n");
         System.out.println(text);
-        System.out.println("\n----------------------------------------");
+        System.out.println("\n----------------------------------------------------------------------");
     }
 
     /**
@@ -25,7 +23,9 @@ public class Utility {
      */
 
     public static void prntMe(String text){
-        System.out.println(text); }
+        System.out.println(text);
+    }
+
 
 
     /**
@@ -41,7 +41,7 @@ public class Utility {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         try{
-            prnt(message);
+            printWithDashes(message);
             do {
                 result = br.readLine();
                 if(!validateMe(regex, result)){
@@ -50,7 +50,7 @@ public class Utility {
             } while (!validateMe(regex, result));
 
         }catch (Exception e) {
-            prnt("Something went wrong, contact you system administrator");
+            printWithDashes("Something went wrong, contact you system administrator");
         }
         return result;
     }
