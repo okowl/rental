@@ -159,6 +159,19 @@ public class Controller implements Options4Menu {
     }
 
     /**
+     * Parsing all items that customer ever rented
+     * @param customerID - customer ID
+     * @return list with results
+     */
+
+    public List allRentedItems(int customerID){
+        List <Rent> itemsRented = rentedItems.stream().filter(rent -> rent
+                .getCustomer().getID().equals(customerID)).collect(Collectors.toList());
+        return itemsRented;
+
+    }
+
+    /**
      * Method that adds new titles to the titles list
      * After stuff chose which title in particular they want to add it will redirect it to the specefic method
      * which will feel all the parameters for a new title and add it then to the Title list
@@ -170,6 +183,7 @@ public class Controller implements Options4Menu {
         printWithDashes("Please chose one of the following options:" +
                 "\n1 - new Music Album\n2 - new Live Concert\n3 - new TV-show\n4 - new Movie");
 
+        //buitiful map for mapping purposes .)
        Map <String, Titles> titleMapper = new HashMap<>();
         titleMapper.put("1", new Music());
         titleMapper.put("2", new LiveConcert());
@@ -194,13 +208,6 @@ public class Controller implements Options4Menu {
                 title = createMovie((Movies)titleMapper.get("4"));
                 break;
         }
-
-        /**
-         * this part still not working as expected
-         * problem: all of the object has same IDs
-         * TODO: troubleshooting if have time left
-         */
-
         //adding many boxes of the same title if shop will get more than one
         Integer copiesOfTitle = Integer.parseInt(readInput
                 ("[0-9]+", "Hom many copies you want to add? (please use just numbers)"));
@@ -215,10 +222,7 @@ public class Controller implements Options4Menu {
             titlesList.add(Titles.factory(title, optionChosen));
             Titles.incrementCounter();
         }
-
-
         menu();
-
     }
 
     /** TODO: refactor 4 methods below
@@ -410,33 +414,53 @@ public class Controller implements Options4Menu {
 
     /**
      * method to create a record of the rent and add it to the array list of rented items
-     * TODO: loyalty points
+     * TODO: customer rentHistory
      */
 
     @Override
     public void recordRent() {
+
+        //just small validation from crush because of empty lists
+
+        if(titlesList.isEmpty() || customerList.isEmpty()){
+            prntMe("This system doesn't have registered users or items\n" +
+                    "Please upload database first");
+            menu();
+        }
+
         //check if the chosen item available
-        String titleID = readInput("[0-9]+", "Please enter ID of title");
-        if(isRented(Integer.parseInt(titleID))){
+        Integer titleID = Integer.parseInt(readInput("[0-9]+", "Please enter ID of title"));
+        if(isRented(titleID)){
             prntMe("Sorry this Title currently rented by other customer\nTry another one");
             recordRent();
         }
         //check if customer already rented 4 items
-        String customerID = readInput("[0-9]+", "Please insert customer ID");
-        if(rentedItems(Integer.parseInt(customerID)) >= 4){
+        Integer customerID = Integer.parseInt(readInput("[0-9]+", "Please insert customer ID"));
+        if(rentedItems(customerID) >= 4){
             prntMe("This customer already rented 4 items.\nAsk customer to return Titles and come back after");
             menu();
         }
-        if(!eligibleToRent(Integer.parseInt(titleID), Integer.parseInt(customerID))){
+        if(!eligibleToRent(titleID, customerID)){
             prntMe("This item can not be rented with this membership plan.\n");
             menu();
         }
-        Customer cm = customerList.get(Integer.parseInt(customerID)-1);
-        Titles title = titlesList.get(Integer.parseInt(titleID)-1);
+        //parcing all the objects for rent record
+        Customer cm = customerList.get(customerID-1);
+        Titles title = titlesList.get(titleID-1);
         Date date = new Date();
 
-        rentedItems.add(new Rent(cm,title, date, "rented" ));
-        titlesList.get(Integer.parseInt(titleID)-1).setRented(true);
+        rentedItems.add(new Rent(cm,title, date, "rented" )); //new rent record
+        titlesList.get(titleID-1).setRented(true); //changing status of the item
+
+        //now loyalty points
+        //if customer has 100 points the rent will be free
+        if(isEnoughLoyaltyPoints(customerID-1)){
+            prntMe("Yay free rent! Don't forget to tell it to customer");
+            customerList.get(customerID-1).getMembershipCard().setLoyalty_points(0); //getting 100 from account
+        }else {
+            customerList.get(customerID-1).getMembershipCard().add_10_points();
+            prntMe("Item rent record was created, customer must return item in 72 hours"); //giving 10 points for rent
+        }
 
         menu();
 
@@ -444,7 +468,38 @@ public class Controller implements Options4Menu {
 
     @Override
     public void returnRent() {
+        //just small validation from crush because of empty lists
 
+        if(titlesList.isEmpty() || customerList.isEmpty()){
+            prntMe("This system doesn't have registered users or items\n" +
+                    "Please upload database first");
+            menu();
+        }
+
+        Integer customerID = Integer.parseInt(readInput("[0-9]+", "Please insert customer ID"));
+        List<String> rentedItem = allRentedItems(customerID); //collecting all items that were rented by customer
+        if(rentedItem.isEmpty()){
+            prntMe("This customer doesn't have any rents yet\n" +
+                    "Please check customer ID again");
+            menu();
+        }
+
+        //TODO: print only last 15 if have time
+
+        for ( Rent itemsRented : rentedItems
+        ) {
+            System.out.println(itemsRented);
+        }
+        Integer rentID = Integer.parseInt(readInput("[0-9]+", "Please insert rent ID"));
+        rentedItems.get(rentID-1).setStatus("returned");
+
+        int titleID = rentedItems.get(rentID-1).getRentedItemID();
+
+        titlesList.get(titleID-1).setRented(false);
+
+        prntMe("Rented item was successfully returned");
+
+        menu();
     }
 
     /**
@@ -476,6 +531,17 @@ public class Controller implements Options4Menu {
         }
          return false;
     }
+
+    /**
+     * Method to check if customer has enough points
+     * @param customerID id of customer
+     * @return boolean value
+     */
+
+    public Boolean isEnoughLoyaltyPoints(int customerID){
+        return (customerList.get(customerID).getMembershipCard().getLoyalty_points().equals(100));
+    }
+
 
 }
 

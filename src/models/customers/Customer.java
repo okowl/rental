@@ -6,6 +6,9 @@ import models.titles.Titles;
 import java.util.List;
 
 public class Customer <T extends Titles> extends Registry {
+    /**
+     * TODO: make all toString look nice
+     */
 
 
     protected String address;

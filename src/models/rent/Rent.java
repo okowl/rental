@@ -41,6 +41,9 @@ public class Rent extends Registry {
         this.title = title;
         this.dateOfRent = dateOfRent;
         this.status = status;
+        this.ID = rent_counter;
+        rent_counter += 1;
+
     }
 
     //getters and setters
@@ -84,15 +87,16 @@ public class Rent extends Registry {
         this.status = status;
     }
 
+    public int getRentedItemID(){
+         return title.getID();
+    }
+
     @Override
     public String toString() {
-        return "Rent{" +
-                "customer=" + customer +
-                ", title=" + title +
-                ", dateOfRent=" + dateOfRent +
-                ", status='" + status + '\'' +
-                ", ID=" + ID +
-                ", Name='" + Name + '\'' +
-                '}';
+        return "Rent: " +
+                "Name "+ title.getName() +
+                ", dateOfRent = " + dateOfRent +
+                ", status = '" + status + '\'' +
+                ", ID = " + ID;
     }
 }
