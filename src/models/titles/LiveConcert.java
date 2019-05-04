@@ -54,6 +54,7 @@ public class LiveConcert extends Audio {
                 ", Band_name='" + Band_name + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
                 ", mediaType=" + mediaType +
+                ", rented=" + rented +
                 ", ID=" + ID +
                 ", Name='" + Name + '\'' +
                 '}';

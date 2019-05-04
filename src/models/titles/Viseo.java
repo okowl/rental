@@ -65,6 +65,7 @@ public abstract class Viseo extends Titles {
                 ", Genre='" + Genre + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
                 ", mediaType=" + mediaType +
+                ", rented=" + rented +
                 ", ID=" + ID +
                 ", Name='" + Name + '\'' +
                 '}';

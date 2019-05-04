@@ -55,6 +55,7 @@ public class BoxSet extends Viseo {
                 ", Genre='" + Genre + '\'' +
                 ", Year_Release='" + Year_Release + '\'' +
                 ", mediaType=" + mediaType +
+                ", rented=" + rented +
                 ", ID=" + ID +
                 ", Name='" + Name + '\'' +
                 '}';

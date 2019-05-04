@@ -13,12 +13,14 @@ public abstract class Titles extends Registry {
     public static Integer counter_id = 1;
     public String Year_Release;
     protected MediaType mediaType;
+    protected Boolean rented = false;
 
     //different constructors to create a new object
 
     public Titles(Integer ID, String name, String year_Release) {
         super(ID, name);
         Year_Release = year_Release;
+
     }
 
     public Titles( String name, String year_Release) {
@@ -87,10 +89,20 @@ public abstract class Titles extends Registry {
         counter_id +=1;
     }
 
+    public Boolean getRented() {
+        return rented;
+    }
+
+    public void setRented(Boolean rented) {
+        this.rented = rented;
+    }
+
     @Override
     public String toString() {
         return "Titles{" +
                 "Year_Release='" + Year_Release + '\'' +
+                ", mediaType=" + mediaType +
+                ", rented=" + rented +
                 ", ID=" + ID +
                 ", Name='" + Name + '\'' +
                 '}';

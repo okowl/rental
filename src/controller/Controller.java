@@ -34,12 +34,11 @@ public class Controller implements Options4Menu {
         return controller;
     }
 
-
-
     private Controller() {
 
         customerList = new ArrayList<>();
         titlesList = new ArrayList<>();
+        rentedItems = new ArrayList<>();
         menu();
 
     }
@@ -150,6 +149,19 @@ public class Controller implements Options4Menu {
     }
 
     /**
+     * method to check how many items currently rented by customer
+     * @param customerID - id of customer
+     * @return returns size of a new list collected
+     */
+
+    public Integer rentedItems(int customerID){
+        List <Rent> itemsCurrentlyRented = rentedItems.stream().filter(rent -> rent.getStatus()
+        .contains("rented") && rent.getCustomer().getID().equals(customerID)).collect(Collectors.toList());
+       return itemsCurrentlyRented.size();
+
+    }
+
+    /**
      * Method that adds new titles to the titles list
      * After stuff chose which title in particular they want to add it will redirect it to the specefic method
      * which will feel all the parameters for a new title and add it then to the Title list
@@ -212,7 +224,7 @@ public class Controller implements Options4Menu {
 
     }
 
-    /**
+    /** TODO: refactor 4 methods below
      * Method to set all of the parameters of the new movie title
      * Using utility to validate and print message
      * @param movies
@@ -320,7 +332,6 @@ public class Controller implements Options4Menu {
             case "4":
                 customerList.add(options.get("4"));
                 break;
-
         }
 
         menu();
@@ -328,6 +339,7 @@ public class Controller implements Options4Menu {
 
     /**
      * method to update selected customer information and then change it
+     * TODO: change customer id to index in Array and troubleshoot
      */
 
     @Override
@@ -336,9 +348,8 @@ public class Controller implements Options4Menu {
         int customerID = Integer.parseInt(readInput("[0-9]+", "Please, enter customer ID (use just numbers)"));
         searchCustomerID(customerID);
 
-        String optionChosen = readInput("[1-3]", "What do you want to change: " +
-                "\n1. Name \n2. Address\n3. Membership type");
-
+        String optionChosen = readInput("[1-4]", "What do you want to change: " +
+                "\n1. Name \n2. Address\n3. Membership type\n4. All of the above");
 
         switch (optionChosen){
             case "1":
@@ -350,10 +361,14 @@ public class Controller implements Options4Menu {
             case "3":
                 updateMembership(customerID);
                 break;
+            case "4":
+                updateCustomerName(customerID);
+                updateCustomerAddress(customerID);
+                updateMembership(customerID);
+                break;
         }
 
         menu();
-
     }
 
     /**
@@ -404,6 +419,16 @@ public class Controller implements Options4Menu {
     @Override
     public void returnRent() {
 
+    }
+
+    /**
+     * method to check if current item is rented or not
+     * @param ID - id of item
+     * @return - true or false
+     */
+
+    public Boolean isRented(int ID){
+        return titlesList.get(ID-1).getRented();
     }
 }
 

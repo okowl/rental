@@ -96,17 +96,17 @@ public class Customer <T extends Titles> extends Registry {
     public class Membership_card{
 
         CardType card;
-        private Integer loyalty_pointd;
+        private Integer loyalty_points;
 
         public Membership_card(CardType card, Integer loyalty_pointd) {
             this.card = card;
-            this.loyalty_pointd = loyalty_pointd;
+            this.loyalty_points = loyalty_pointd;
         }
 
         //initial loyalty points methods
         public void add_10_points(){
 
-            loyalty_pointd+=10;
+            loyalty_points +=10;
 
         }
 
@@ -121,19 +121,19 @@ public class Customer <T extends Titles> extends Registry {
         }
 
 
-        public Integer getLoyalty_pointd() {
-            return loyalty_pointd;
+        public Integer getLoyalty_points() {
+            return loyalty_points;
         }
 
-        public void setLoyalty_pointd(Integer loyalty_pointd) {
-            this.loyalty_pointd = loyalty_pointd;
+        public void setLoyalty_points(Integer loyalty_points) {
+            this.loyalty_points = loyalty_points;
         }
 
         @Override
         public String toString() {
             return "Membership_card{" +
                     "card=" + card +
-                    ", loyalty_pointd=" + loyalty_pointd +
+                    ", loyalty_points=" + loyalty_points +
                     '}';
         }
     }
