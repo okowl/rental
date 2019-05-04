@@ -36,6 +36,13 @@ public class Rent extends Registry {
         rent_counter += 1;
     }
 
+    public Rent(Customer customer, Titles title, Date dateOfRent, String status) {
+        this.customer = customer;
+        this.title = title;
+        this.dateOfRent = dateOfRent;
+        this.status = status;
+    }
+
     //getters and setters
     public Customer getCustomer() {
         return customer;

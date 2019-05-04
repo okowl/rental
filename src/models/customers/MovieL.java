@@ -1,6 +1,7 @@
 package models.customers;
 
 import models.titles.Movies;
+import models.titles.Titles;
 
 public class MovieL extends Customer<Movies> {
 
@@ -23,4 +24,6 @@ public class MovieL extends Customer<Movies> {
         super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembershipCard());
         customerType = this.getClass().getSimpleName();
     }
+
+
 }

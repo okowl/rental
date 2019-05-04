@@ -6,10 +6,7 @@ import models.titles.*;
 
 import static controller.utility.Utility.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /***
@@ -411,8 +408,37 @@ public class Controller implements Options4Menu {
         prntMe("Customer plan was successfully updated");
     }
 
+    /**
+     * method to create a record of the rent and add it to the array list of rented items
+     * TODO: loyalty points
+     */
+
     @Override
     public void recordRent() {
+        //check if the chosen item available
+        String titleID = readInput("[0-9]+", "Please enter ID of title");
+        if(isRented(Integer.parseInt(titleID))){
+            prntMe("Sorry this Title currently rented by other customer\nTry another one");
+            recordRent();
+        }
+        //check if customer already rented 4 items
+        String customerID = readInput("[0-9]+", "Please insert customer ID");
+        if(rentedItems(Integer.parseInt(customerID)) >= 4){
+            prntMe("This customer already rented 4 items.\nAsk customer to return Titles and come back after");
+            menu();
+        }
+        if(!eligibleToRent(Integer.parseInt(titleID), Integer.parseInt(customerID))){
+            prntMe("This item can not be rented with this membership plan.\n");
+            menu();
+        }
+        Customer cm = customerList.get(Integer.parseInt(customerID)-1);
+        Titles title = titlesList.get(Integer.parseInt(titleID)-1);
+        Date date = new Date();
+
+        rentedItems.add(new Rent(cm,title, date, "rented" ));
+        titlesList.get(Integer.parseInt(titleID)-1).setRented(true);
+
+        menu();
 
     }
 
@@ -430,6 +456,27 @@ public class Controller implements Options4Menu {
     public Boolean isRented(int ID){
         return titlesList.get(ID-1).getRented();
     }
+
+    /** TODO: research how to do it with class injection as planned originally
+     * Method that compares customer membership plan with the type of item he/she tries to rent
+     * @param titleID id of chosen title
+     * @param customerID id of the customer
+     * @return boolean value
+     */
+
+    public Boolean eligibleToRent(int titleID, int customerID){
+        String customerType = customerList.get(customerID-1).getCustomerType();
+        String titleType = titlesList.get(titleID-1).getClass().getSimpleName();
+
+        if(customerType.equals("PremiumC")){
+            return true;
+        }else if((customerType.equals("TVL") && titleType.equals("BoxSet")) || (customerType.equals("MovieL") && titleType.equals("Movies"))
+                || (customerType.equals("MusicL") && (titleType.equals("Music")) || titleType.equals("LiveConcert"))){
+            return true;
+        }
+         return false;
+    }
+
 }
 
 

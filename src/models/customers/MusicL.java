@@ -1,6 +1,11 @@
 package models.customers;
 
+import controller.Controller;
 import models.titles.Audio;
+import models.titles.Titles;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MusicL extends Customer <Audio>{
 
@@ -22,4 +27,6 @@ public class MusicL extends Customer <Audio>{
         super(cm.getID(), cm.getName(), cm.getAddress(), cm.getMembershipCard());
         customerType = this.getClass().getSimpleName();
     }
+
+
 }

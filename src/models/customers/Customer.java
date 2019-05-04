@@ -10,7 +10,7 @@ public class Customer <T extends Titles> extends Registry {
 
     protected String address;
     protected String customerType;
-    protected List <T> Rent_history;
+    protected List <T> rentHistory;
     protected Membership_card membershipCard;
     public static Integer customers_counter = 1;
 
@@ -30,6 +30,15 @@ public class Customer <T extends Titles> extends Registry {
         customers_counter += 1;
     }
 
+//    public abstract Boolean isEligibleToRent(Titles title){
+//        try{
+//            rentHistory.add(title);
+//            rentHistory.removeAll();
+//            return true;
+//        }catch(Exception e){
+//            return false;
+//        }
+//    }
 
     //TODO to implement new membershipCard Instantiation
     private Membership_card initMembershipCard() {
@@ -52,12 +61,12 @@ public class Customer <T extends Titles> extends Registry {
         this.customerType = customerType;
     }
 
-    public List<T> getRent_history() {
-        return Rent_history;
+    public List<T> getRentHistory() {
+        return rentHistory;
     }
 
-    public void setRent_history(List<T> rent_history) {
-        Rent_history = rent_history;
+    public void setRentHistory(List<T> rentHistory) {
+        this.rentHistory = rentHistory;
     }
 
     public Membership_card getMembershipCard() {
@@ -81,7 +90,7 @@ public class Customer <T extends Titles> extends Registry {
         return "Customer{" +
                 "address='" + address + '\'' +
                 ", customerType='" + customerType + '\'' +
-                ", Rent_history=" + Rent_history +
+                ", rentHistory=" + rentHistory +
                 ", membershipCard=" + membershipCard +
                 ", ID=" + ID +
                 ", Name='" + Name + '\'' +
