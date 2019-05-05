@@ -89,7 +89,7 @@ public class Controller implements Options4Menu {
 
         String input = readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$",
                 "Please insert title name, ID or customer address");
-        List<Titles> filteredCustomers = titlesList.stream().filter(title->{
+        List<Titles> filteredTitles = titlesList.stream().filter(title->{
             //if title belongs to the live concert or music we also checking band name
             if(title.getClass().getSimpleName().equals(Music.class.getSimpleName())){
                 return ((Music)title).getBand_name().toLowerCase().contains(input.toLowerCase());
@@ -100,7 +100,11 @@ public class Controller implements Options4Menu {
             return title.getName().toLowerCase().contains(input.toLowerCase());
         }).collect(Collectors.toList());
 
-        for (Titles titles :filteredCustomers
+        if(filteredTitles.isEmpty()){
+            prntMe("No matches found");
+        }
+
+        for (Titles titles :filteredTitles
         ) {
             System.out.println(titles);
         }
@@ -121,11 +125,15 @@ public class Controller implements Options4Menu {
         List<Customer> filteredCustomers = customerList.stream().filter(cm->cm.getName()
                 .toLowerCase().contains(input.toLowerCase()) ||
                 cm.getAddress().toLowerCase().contains(input.toLowerCase())).collect(Collectors.toList());
+        if(filteredCustomers.isEmpty()){
+            prntMe("No matches found");
+        }
 
         for (Customer customer :filteredCustomers
              ) {
             System.out.println(customer);
         }
+
 
         menu();
 
@@ -139,6 +147,15 @@ public class Controller implements Options4Menu {
 
     public void searchCustomerID(int ID) {
          List<Customer> filteredCustomers = customerList.stream().filter(cm-> cm.getID().equals(ID)).collect(Collectors.toList());
+
+         if(filteredCustomers.isEmpty()){
+            prntMe("No matches found");
+         }
+
+        if(filteredCustomers.isEmpty()){
+            prntMe("No matches found");
+        }
+
         for (Customer customer :filteredCustomers
         ) {
             System.out.println(customer);
