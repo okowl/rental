@@ -1,8 +1,11 @@
 package controller.utility;
 
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import models.customers.Customer;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utility {
 
@@ -64,6 +67,44 @@ public class Utility {
 
     public static Boolean validateMe(String regex, String whatToCheck){
         return whatToCheck.matches(regex);
+    }
+
+    /**
+     * TODO: if have time
+     * @param filePath
+     * @return
+     */
+    public static List listFiller(String filePath){
+
+        List<String> newList = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+
+            while ((br.readLine()) != null) {
+            }
+
+        } catch (IOException e){
+            prntMe("404. Files not found or could not be parsed");
+        }
+
+        return newList;
+    }
+
+    /**
+     * TODO: troubleshoot if have time
+     * @param arrayListToWrite
+     * @param pathToFile
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+
+    public static void writeToFile(List<Customer> arrayListToWrite, String pathToFile) throws FileNotFoundException, IOException{
+
+        FileOutputStream fos = new FileOutputStream(pathToFile);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(arrayListToWrite);
+        oos.close();
+
+        prntMe("New Record has been written!");
     }
 
 

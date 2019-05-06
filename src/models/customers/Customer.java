@@ -91,12 +91,12 @@ public class Customer <T extends Titles> extends Registry {
     @Override
     public String toString() {
         return "Customer{" +
-                "address='" + address + '\'' +
-                ", customerType='" + customerType + '\'' +
-                ", rentHistory=" + rentHistory +
-                ", membershipCard=" + membershipCard +
-                ", ID=" + ID +
-                ", Name='" + Name + '\'' +
+                ", ID = " + ID +
+                ", Name = '" + Name + '\'' +
+                "address = '" + address + '\'' +
+                ", membership type = '" + customerType + '\'' +
+                ", rentHistory = " + rentHistory +
+                ", membershipCard = " + membershipCard +
                 '}';
     }
 

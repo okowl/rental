@@ -6,6 +6,7 @@ import models.titles.*;
 
 import static controller.utility.Utility.*;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ public class Controller implements Options4Menu {
     private List <Customer> customerList;
     private List <Titles> titlesList;
     private List <Rent> rentedItems;
+    //private String pathToCustomers = "/Users/olgakiseleva/Desktop/@rental_19/src/files/customers.txt";
 
     private static Controller controller;
 
@@ -325,6 +327,7 @@ public class Controller implements Options4Menu {
                 readInput("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$","Please enter customer full address")
         );
 
+
         Map<String, Customer> options = new HashMap<>();
         options.put("1", new MusicL(cm));
         options.put("2", new TVL(cm));
@@ -334,6 +337,7 @@ public class Controller implements Options4Menu {
         printWithDashes("Ask the customer what subscription type they want buy");
         prntMe("Choose one of options above:");
         prntMe("1 - for Music Lovers, 2 - TV Lovers, 3 - Movie Lovers, 4 - for Premium");
+
 
         String chosenOption = readInput("[1-4]", "Please just use numbers");
 
@@ -351,6 +355,14 @@ public class Controller implements Options4Menu {
                 customerList.add(options.get("4"));
                 break;
         }
+
+        //setting up customer card
+
+        int newCustomerID = customerList.size()-1;
+        Integer opcard = Integer.parseInt(readInput("[1-2]", "What card does customer hold: \n1. Debit\n2. Credit"));
+        if(opcard.equals(1))
+        { customerList.get(newCustomerID).getMembershipCard().setCard(CardType.DEBIT);}
+        else {customerList.get(newCustomerID).getMembershipCard().setCard(CardType.CREDIT);}
 
         menu();
     }
@@ -559,7 +571,17 @@ public class Controller implements Options4Menu {
         return (customerList.get(customerID).getMembershipCard().getLoyalty_points().equals(100));
     }
 
+    public List<Customer> getCustomerList() {
+        return customerList;
+    }
 
+    public List<Titles> getTitlesList() {
+        return titlesList;
+    }
+
+    public List<Rent> getRentedItems() {
+        return rentedItems;
+    }
 }
 
 
