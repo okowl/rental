@@ -56,6 +56,10 @@ public class Rent extends Registry {
         return customer;
     }
 
+    public int getCustomerID(){
+        return customer.getID();
+    }
+
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
@@ -96,6 +100,10 @@ public class Rent extends Registry {
          return title.getID();
     }
 
+    public int getCustomerIdFromRent(){
+        return  customer.getID();
+    }
+
     public Date getDateOfReturn() {
         return dateOfReturn;
     }
@@ -114,4 +122,5 @@ public class Rent extends Registry {
                 ", status = '" + status +
                 ", returned date = " + dateOfReturn;
     }
+
 }

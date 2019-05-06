@@ -50,20 +50,25 @@ public class Controller implements Options4Menu {
         menu();
 
     }
+    //method that creates couple of record in every list so you have something to test
+    //eg has overdue items rented to test penalty points
+    //PS I could add to customer enable/disable status and if customer goes into -100 loyalty points to disable account
+    //but I dont have time I guess
 
     public void fillList4Test(){
 
         SimpleDateFormat myFormat = new SimpleDateFormat("hh:mm:ss dd MM yyyy");
-        String myDate = "14:00:00 03 05 2019";
+        String myDate = "14:00:00 01 05 2019";
         Date dateOfRent = null;
         try {
             dateOfRent = myFormat.parse(myDate); } catch (ParseException e) { e.printStackTrace(); }
 
         //couple of record to play with
         customerList.add(new MusicL("Oli","bad time managment street"));
-        customerList.add(new TVL("example", "exampleAddress 12"));
+        customerList.add(new TVL("Joe Doe", "Amsterdam"));
         customerList.add(new PremiumC("Taras", "Slava Ukraine street"));
         customerList.add(new MovieL("Felipe", "super hero lane"));
+
 
         titlesList.add( new Movies("Java","1999","Amilcar","thriller","Oscar"));
         titlesList.add( new BoxSet("Best teacher of the year", "2019", "Amilcar Aponte", "Documentary", 4));
@@ -196,15 +201,6 @@ public class Controller implements Options4Menu {
          if(filteredCustomers.isEmpty()){
             prntMe("No matches found");
          }
-
-        if(filteredCustomers.isEmpty()){
-            prntMe("No matches found");
-        }
-
-        for (Customer customer :filteredCustomers
-        ) {
-            System.out.println(customer);
-        }
         return filteredCustomers;
     }
 
@@ -222,14 +218,13 @@ public class Controller implements Options4Menu {
     }
 
     /**
-     * Parsing all items that customer ever rented
-     * @param customerID - customer ID
+     * Parsing all rented items
      * @return list with results
      */
 
-    public List allRentedItems(int customerID){
-        List <Rent> itemsRented = rentedItems.stream().filter(rent -> rent.getStatus()
-                .contains("rented") && rent.getCustomer().getID().equals(customerID)).collect(Collectors.toList());
+    public List allRentedItems(){
+        List <Rent> itemsRented = rentedItems.stream().filter(rent -> rent.getStatus().contains("rented"))
+                .collect(Collectors.toList());
         return itemsRented;
 
     }
@@ -360,7 +355,6 @@ public class Controller implements Options4Menu {
 
     /**
      * Method to make a new customer
-     * TODO: check how membership card is working and troubleshoot
      */
 
     @Override
@@ -424,6 +418,8 @@ public class Controller implements Options4Menu {
             prntMe("This customer doesn't exist, check your input!");
             menu();
         }
+        //printing result
+        for (Customer customer :cm) { System.out.println(customer); }
 
         String optionChosen = readInput("[1-4]", "What do you want to change: " +
                 "\n1. Name \n2. Address\n3. Membership type\n4. All of the above");
@@ -556,11 +552,15 @@ public class Controller implements Options4Menu {
             menu();
         }
 
-        Integer customerID = Integer.parseInt(readInput("[0-9]+", "Please insert customer ID"));
-        List<String> rentedItem = allRentedItems(customerID); //collecting all items that were rented by customer
+        List<String> rentedItem = allRentedItems(); //collecting all items that were rented by customer
         if(rentedItem.isEmpty()){
-            prntMe("This customer doesn't have any rents yet\n" +
-                    "Please check customer ID again");
+            prntMe("No rents registered in the system\n");
+            menu();
+        }
+
+        Integer customerID = Integer.parseInt(readInput("[0-9]+", "Please insert customer ID"));
+        if(searchCustomerID(customerID).isEmpty()){
+            prntMe("Customer doesn't exist, check input!");
             menu();
         }
 
@@ -572,9 +572,9 @@ public class Controller implements Options4Menu {
         }
         Integer rentID = Integer.parseInt(readInput("[0-9]+", "Please insert rent ID"));
         try{
-        rentedItems.get(rentID-1).setStatus("returned");
+        rentedItems.get(rentID-1).setStatus("returned"); //set up status of rent to returned
 
-        int titleID = rentedItems.get(rentID-1).getRentedItemID();
+        int titleID = rentedItems.get(rentID-1).getRentedItemID(); //getting
         titlesList.get(titleID-1).setRented(false);
         rentedItems.get(rentID-1).setDateOfReturn(new Date());
 
@@ -584,17 +584,30 @@ public class Controller implements Options4Menu {
             menu();
         }
 
-        isOverDue(rentedItems.get(rentID-1).getDateOfRent(), rentedItems.get(rentID-1).getDateOfReturn());
+        int numOfDays = isOverDue(rentedItems.get(rentID-1).getDateOfRent(), rentedItems.get(rentID-1).getDateOfReturn());
+
+        //discarding loyalty points from customer if rent is overdue
+        if(numOfDays>3){
+            customerList.get(customerID-1).getMembershipCard().discardPoints(numOfDays);
+            prntMe("Rent is overdue! Calculating penalty points..."+
+            "\n"+numOfDays + " * 2 = "+numOfDays*2+ " loyalty points discarded!");
+        }
 
         menu();
     }
 
-    public Boolean isOverDue(Date dateRented, Date dateReturned){
+    /**
+     * Method to check difference between two dates
+     * @param dateRented - start date
+     * @param dateReturned - end date
+     * @return - difference between them
+     */
 
-        Interval interval = new Interval(dateRented, dateReturned);
+    public Integer isOverDue(Date dateRented, Date dateReturned){
 
-        System.out.println(interval);
-        return false;
+        long diff = dateReturned.getTime() - dateRented.getTime();
+
+        return Math.toIntExact(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
     }
 
     /**
