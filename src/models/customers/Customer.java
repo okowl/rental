@@ -122,6 +122,15 @@ public class Customer <T extends Titles> extends Registry {
 
         }
 
+        /**
+         * for every day of late return take 2 loyalty points
+         * @param numOfDays - days late
+         */
+        public void discardPoints(int numOfDays){
+            loyalty_points = loyalty_points - 2*numOfDays;
+
+        }
+
         //getters and setters
 
         public CardType getCard() {

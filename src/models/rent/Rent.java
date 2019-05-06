@@ -11,6 +11,7 @@ public class Rent extends Registry {
     private Customer customer;
     private Titles title;
     private Date dateOfRent;
+    private Date dateOfReturn;
     private String status;
 
     public static Integer rent_counter = 1;
@@ -23,6 +24,7 @@ public class Rent extends Registry {
         dateOfRent = new Date();
         this.title = title;
         this.customer = customer;
+        this.dateOfReturn = null;
         this.status = status;
 
     }
@@ -33,7 +35,9 @@ public class Rent extends Registry {
         this.title = title;
         this.dateOfRent = dateOfRent;
         this.status = status;
+        this.dateOfReturn = null;
         rent_counter += 1;
+
     }
 
     public Rent(Customer customer, Titles title, Date dateOfRent, String status) {
@@ -41,6 +45,7 @@ public class Rent extends Registry {
         this.title = title;
         this.dateOfRent = dateOfRent;
         this.status = status;
+        this.dateOfReturn = null;
         this.ID = rent_counter;
         rent_counter += 1;
 
@@ -91,12 +96,22 @@ public class Rent extends Registry {
          return title.getID();
     }
 
+    public Date getDateOfReturn() {
+        return dateOfReturn;
+    }
+
+    public void setDateOfReturn(Date dateOfReturn) {
+        this.dateOfReturn = dateOfReturn;
+    }
+
     @Override
     public String toString() {
         return "Rent: " +
-                "Name "+ title.getName() +
+                "ID = " + ID+
+                " Customer: " + customer.getName() +
+                ", Name "+ title.getName() +
                 ", dateOfRent = " + dateOfRent +
-                ", status = '" + status + '\'' +
-                ", ID = " + ID;
+                ", status = '" + status +
+                ", returned date = " + dateOfReturn;
     }
 }

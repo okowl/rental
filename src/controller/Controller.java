@@ -1,13 +1,21 @@
 package controller;
+/**
+ * @author Olga Kiseleva 2017136
+ * @date 10.05.2019
+ */
 
 import models.customers.*;
 import models.rent.Rent;
 import models.titles.*;
+import sun.jvm.hotspot.utilities.Interval;
 
 import static controller.utility.Utility.*;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /***
@@ -34,11 +42,48 @@ public class Controller implements Options4Menu {
     }
 
     private Controller() {
-
         customerList = new ArrayList<>();
         titlesList = new ArrayList<>();
         rentedItems = new ArrayList<>();
+        fillList4Test();
+
         menu();
+
+    }
+
+    public void fillList4Test(){
+
+        SimpleDateFormat myFormat = new SimpleDateFormat("hh:mm:ss dd MM yyyy");
+        String myDate = "14:00:00 03 05 2019";
+        Date dateOfRent = null;
+        try {
+            dateOfRent = myFormat.parse(myDate); } catch (ParseException e) { e.printStackTrace(); }
+
+        //couple of record to play with
+        customerList.add(new MusicL("Oli","bad time managment street"));
+        customerList.add(new TVL("example", "exampleAddress 12"));
+        customerList.add(new PremiumC("Taras", "Slava Ukraine street"));
+        customerList.add(new MovieL("Felipe", "super hero lane"));
+
+        titlesList.add( new Movies("Java","1999","Amilcar","thriller","Oscar"));
+        titlesList.add( new BoxSet("Best teacher of the year", "2019", "Amilcar Aponte", "Documentary", 4));
+        titlesList.get(0).setRented(true);
+
+        customerList.get(3).getMembershipCard().setLoyalty_points(60);
+
+        rentedItems.add(new Rent(1, customerList.get(3), titlesList.get(0)));
+        rentedItems.get(0).setStatus("rented");
+        rentedItems.get(0).setDateOfRent(dateOfRent);
+
+
+        titlesList.get(1).setRented(true);
+
+        customerList.get(1).getMembershipCard().setLoyalty_points(40);
+
+        rentedItems.add(new Rent(2, customerList.get(1), titlesList.get(1)));
+        rentedItems.get(1).setStatus("rented");
+        rentedItems.get(1).setDateOfRent(dateOfRent);
+
 
     }
 
@@ -135,8 +180,6 @@ public class Controller implements Options4Menu {
              ) {
             System.out.println(customer);
         }
-
-
         menu();
 
     }
@@ -147,7 +190,7 @@ public class Controller implements Options4Menu {
      * @return - list of customer sthat matches this ID
      */
 
-    public void searchCustomerID(int ID) {
+    public List searchCustomerID(int ID) {
          List<Customer> filteredCustomers = customerList.stream().filter(cm-> cm.getID().equals(ID)).collect(Collectors.toList());
 
          if(filteredCustomers.isEmpty()){
@@ -162,6 +205,7 @@ public class Controller implements Options4Menu {
         ) {
             System.out.println(customer);
         }
+        return filteredCustomers;
     }
 
     /**
@@ -184,8 +228,8 @@ public class Controller implements Options4Menu {
      */
 
     public List allRentedItems(int customerID){
-        List <Rent> itemsRented = rentedItems.stream().filter(rent -> rent
-                .getCustomer().getID().equals(customerID)).collect(Collectors.toList());
+        List <Rent> itemsRented = rentedItems.stream().filter(rent -> rent.getStatus()
+                .contains("rented") && rent.getCustomer().getID().equals(customerID)).collect(Collectors.toList());
         return itemsRented;
 
     }
@@ -357,7 +401,6 @@ public class Controller implements Options4Menu {
         }
 
         //setting up customer card
-
         int newCustomerID = customerList.size()-1;
         Integer opcard = Integer.parseInt(readInput("[1-2]", "What card does customer hold: \n1. Debit\n2. Credit"));
         if(opcard.equals(1))
@@ -376,7 +419,11 @@ public class Controller implements Options4Menu {
     public void updCustomer() {
 
         int customerID = Integer.parseInt(readInput("[0-9]+", "Please, enter customer ID (use just numbers)"));
-        searchCustomerID(customerID);
+        List <Customer> cm = searchCustomerID(customerID);
+        if(cm.isEmpty()){
+            prntMe("This customer doesn't exist, check your input!");
+            menu();
+        }
 
         String optionChosen = readInput("[1-4]", "What do you want to change: " +
                 "\n1. Name \n2. Address\n3. Membership type\n4. All of the above");
@@ -450,46 +497,50 @@ public class Controller implements Options4Menu {
     public void recordRent() {
 
         //just small validation from crush because of empty lists
-
         if(titlesList.isEmpty() || customerList.isEmpty()){
             prntMe("This system doesn't have registered users or items\n" +
                     "Please upload database first");
             menu();
         }
+        try {
 
-        //check if the chosen item available
-        Integer titleID = Integer.parseInt(readInput("[0-9]+", "Please enter ID of title"));
-        if(isRented(titleID)){
-            prntMe("Sorry this Title currently rented by other customer\nTry another one");
-            recordRent();
-        }
-        //check if customer already rented 4 items
-        Integer customerID = Integer.parseInt(readInput("[0-9]+", "Please insert customer ID"));
-        if(rentedItems(customerID) >= 4){
-            prntMe("This customer already rented 4 items.\nAsk customer to return Titles and come back after");
-            menu();
-        }
-        if(!eligibleToRent(titleID, customerID)){
-            prntMe("This item can not be rented with this membership plan.\n");
-            menu();
-        }
-        //parcing all the objects for rent record
-        Customer cm = customerList.get(customerID-1);
-        Titles title = titlesList.get(titleID-1);
-        Date date = new Date();
+            //check if the chosen item available
+            Integer titleID = Integer.parseInt(readInput("[0-9]+", "Please enter ID of title"));
+            if (isRented(titleID)) {
+                prntMe("Sorry this Title currently rented by other customer\nTry another one");
+                recordRent();
+            }
+            //check if customer already rented 4 items
+            Integer customerID = Integer.parseInt(readInput("[0-9]+", "Please insert customer ID"));
+            if (rentedItems(customerID) >= 4) {
+                prntMe("This customer already rented 4 items.\nAsk customer to return Titles and come back after");
+                menu();
+            }
+            if (!eligibleToRent(titleID, customerID)) {
+                prntMe("This item can not be rented with this membership plan.\n");
+                menu();
+            }
+            //parsing all the objects for rent record
+            Customer cm = customerList.get(customerID - 1);
+            Titles title = titlesList.get(titleID - 1);
 
-        rentedItems.add(new Rent(cm,title, date, "rented" )); //new rent record
-        titlesList.get(titleID-1).setRented(true); //changing status of the item
 
-        //now loyalty points
-        //if customer has 100 points the rent will be free
-        if(isEnoughLoyaltyPoints(customerID-1)){
-            prntMe("Yay free rent! Don't forget to tell it to customer");
-            customerList.get(customerID-1).getMembershipCard().setLoyalty_points(0); //getting 100 from account
-        }else {
-            customerList.get(customerID-1).getMembershipCard().add_10_points();
-            prntMe("Item rent record was created, customer must return item in 72 hours"); //giving 10 points for rent
-        }
+            rentedItems.add(new Rent(cm, title, new Date(), "rented")); //new rent record
+            titlesList.get(titleID - 1).setRented(true); //changing status of the item
+
+            //now loyalty points
+            //if customer has 100 points the rent will be free
+            if (isEnoughLoyaltyPoints(customerID - 1)) {
+                prntMe("Yay free rent! Don't forget to tell it to customer");
+                customerList.get(customerID - 1).getMembershipCard().setLoyalty_points(0); //getting 100 from account
+            } else {
+                customerList.get(customerID - 1).getMembershipCard().add_10_points();
+                prntMe("Item rent record was created, customer must return item in 72 hours"); //giving 10 points for rent
+            }
+        }catch (Exception e){
+                prntMe("This ID doesn't exist");
+                menu();
+            }
 
         menu();
 
@@ -520,15 +571,30 @@ public class Controller implements Options4Menu {
             System.out.println(itemsRented);
         }
         Integer rentID = Integer.parseInt(readInput("[0-9]+", "Please insert rent ID"));
+        try{
         rentedItems.get(rentID-1).setStatus("returned");
 
         int titleID = rentedItems.get(rentID-1).getRentedItemID();
-
         titlesList.get(titleID-1).setRented(false);
+        rentedItems.get(rentID-1).setDateOfReturn(new Date());
 
         prntMe("Rented item was successfully returned");
+        }catch (Exception e){
+            prntMe("Wrong ID!");
+            menu();
+        }
+
+        isOverDue(rentedItems.get(rentID-1).getDateOfRent(), rentedItems.get(rentID-1).getDateOfReturn());
 
         menu();
+    }
+
+    public Boolean isOverDue(Date dateRented, Date dateReturned){
+
+        Interval interval = new Interval(dateRented, dateReturned);
+
+        System.out.println(interval);
+        return false;
     }
 
     /**
@@ -571,17 +637,7 @@ public class Controller implements Options4Menu {
         return (customerList.get(customerID).getMembershipCard().getLoyalty_points().equals(100));
     }
 
-    public List<Customer> getCustomerList() {
-        return customerList;
-    }
 
-    public List<Titles> getTitlesList() {
-        return titlesList;
-    }
-
-    public List<Rent> getRentedItems() {
-        return rentedItems;
-    }
 }
 
 
