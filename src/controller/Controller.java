@@ -58,7 +58,7 @@ public class Controller implements Options4Menu {
     public void fillList4Test(){
 
         SimpleDateFormat myFormat = new SimpleDateFormat("hh:mm:ss dd MM yyyy");
-        String myDate = "14:00:00 01 05 2019";
+        String myDate = "14:00:00 06 05 2019";
         Date dateOfRent = null;
         try {
             dateOfRent = myFormat.parse(myDate); } catch (ParseException e) { e.printStackTrace(); }
@@ -180,11 +180,9 @@ public class Controller implements Options4Menu {
         if(filteredCustomers.isEmpty()){
             prntMe("No matches found");
         }
-
+        //for loop for print
         for (Customer customer :filteredCustomers
-             ) {
-            System.out.println(customer);
-        }
+             ) { System.out.println(customer); }
         menu();
 
     }
@@ -198,9 +196,8 @@ public class Controller implements Options4Menu {
     public List searchCustomerID(int ID) {
          List<Customer> filteredCustomers = customerList.stream().filter(cm-> cm.getID().equals(ID)).collect(Collectors.toList());
 
-         if(filteredCustomers.isEmpty()){
-            prntMe("No matches found");
-         }
+         if(filteredCustomers.isEmpty()){ //if list is empty print this
+            prntMe("No matches found"); }
         return filteredCustomers;
     }
 
@@ -558,18 +555,18 @@ public class Controller implements Options4Menu {
             menu();
         }
 
+        //TODO: print only last 15 if have time
+
+        for ( Rent itemsRented : rentedItems
+        ) { System.out.println(itemsRented); }
+
+
         Integer customerID = Integer.parseInt(readInput("[0-9]+", "Please insert customer ID"));
         if(searchCustomerID(customerID).isEmpty()){
             prntMe("Customer doesn't exist, check input!");
             menu();
         }
 
-        //TODO: print only last 15 if have time
-
-        for ( Rent itemsRented : rentedItems
-        ) {
-            System.out.println(itemsRented);
-        }
         Integer rentID = Integer.parseInt(readInput("[0-9]+", "Please insert rent ID"));
         try{
         rentedItems.get(rentID-1).setStatus("returned"); //set up status of rent to returned

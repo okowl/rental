@@ -116,7 +116,7 @@ public class Rent extends Registry {
     public String toString() {
         return "Rent: " +
                 "ID = " + ID+
-                " Customer: " + customer.getName() +
+                " Customer: " + customer.getID()+ ' ' + customer.getName() +
                 ", Name "+ title.getName() +
                 ", dateOfRent = " + dateOfRent +
                 ", status = '" + status +
